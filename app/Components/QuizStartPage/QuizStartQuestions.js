@@ -132,7 +132,7 @@ function QuizStartQuestions({ onUpdateTime }) {
         clearInterval(interval);
       }
     }
-  }, [timer]);
+  }, [timer,allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
 
   // With the useEffect every time the component is loaded up
   //we need to get the index of the quiz we selected inside

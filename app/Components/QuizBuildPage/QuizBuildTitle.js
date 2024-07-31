@@ -37,7 +37,7 @@ function QuizBuildTitle({ focusProp, onChangeQuizTitle }) {
       copySelectedIcon.faIcon = newFaIcon;
       setSelectedIcon(copySelectedIcon);
     }
-  }, []);
+  }, [selectedIcon, setSelectedIcon]);
 
   return (
     <div className="p-3 flex justify-between border border-theme  rounded-md">

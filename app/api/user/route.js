@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+
 import { connectToDB } from '@/libs/mongoDB'; 
 import User from "@/app/models/UserSchema";
 import { NextResponse } from 'next/server';

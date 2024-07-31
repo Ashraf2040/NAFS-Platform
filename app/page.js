@@ -30,7 +30,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [setSelectQuizToStart, setSelectedQuiz]);
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
