@@ -16,7 +16,7 @@ function QuizStartHeader({ parentTimer }) {
     <div className="flex justify-between">
       {/* The Quiz name */}
       <div className="flex gap-2 justify-center">
-        <div className="bg-green-700 w-12 h-12 flex items-center justify-center p-2 rounded-md">
+        <div className="bg-theme w-12 h-12 flex items-center justify-center p-2 rounded-md">
           <FontAwesomeIcon
             className="text-white"
             width={25}
@@ -35,7 +35,7 @@ function QuizStartHeader({ parentTimer }) {
       {/* Timer */}
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon
-          className="text-green-700"
+          className="text-theme"
           width={20}
           height={20}
           icon={faStopwatch}

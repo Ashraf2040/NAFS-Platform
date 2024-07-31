@@ -105,7 +105,7 @@ function QuizStartQuestions({ onUpdateTime }) {
     return () => {
       clearInterval(interval);
     };
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, indexOfQuizSelected,interval,allQuizzes,startTimer]);
 
   useEffect(() => {
     if (timer === 0 && !isQuizEnded) {
@@ -143,7 +143,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       (quiz) => quiz._id === selectQuizToStart._id,
     );
     setIndexOfQuizSelected(quizIndexFound);
-  }, []);
+  }, [allQuizzes, selectQuizToStart._id]);
 
   useEffect(() => {
     if (isQuizEnded) {
@@ -154,7 +154,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       saveDataIntoDB();
       updateUserInformation();
     }
-  }, [isQuizEnded]);
+  }, [isQuizEnded,]);
 
   function selectChoiceFunction(choiceIndexClicked) {
     // update the selectedChoice variable state
@@ -298,7 +298,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       />
       {/* The Question Part */}
       <div className="flex   items-center gap-2">
-        <div className="bg-green-700 flex  justify-center items-center rounded-md w-11 h-11 text-white p-3">
+        <div className="bg-theme flex  justify-center items-center rounded-md w-11 h-11 text-white p-3">
           {currentQuestionIndex + 1}
         </div>
         <p>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
@@ -312,10 +312,10 @@ function QuizStartQuestions({ onUpdateTime }) {
               onClick={() => {
                 selectChoiceFunction(indexChoice);
               }}
-              className={`p-3 ml-11 w-10/12 border border-green-700 rounded-md
-               hover:bg-green-700 hover:text-white transition-all select-none ${
+              className={`p-3 ml-11 w-10/12 border border-theme rounded-md
+               hover:bg-theme hover:text-white transition-all select-none ${
                  selectedChoice === indexChoice
-                   ? 'bg-green-700 text-white'
+                   ? 'bg-theme text-white'
                    : 'bg-white'
                }`}
             >
@@ -331,7 +331,7 @@ function QuizStartQuestions({ onUpdateTime }) {
             moveToTheNextQuestion();
           }}
           disabled={isQuizEnded ? true : false}
-          className={`p-2 px-5 text-[15px] text-white rounded-md bg-green-700 mr-[70px] ${
+          className={`p-2 px-5 text-[15px] text-white rounded-md bg-theme mr-[70px] ${
             isQuizEnded ? 'opacity-60' : 'opacity-100'
           }`}
         >
@@ -422,7 +422,7 @@ console.log("your result is ",result);
         </div>
         <button
           onClick={() => tryAgainFunction()}
-          className="p-2 bg-green-700 rounded-md text-white px-6"
+          className="p-2 bg-theme rounded-md text-white px-6"
         >
           Try Again
         </button>
@@ -445,7 +445,7 @@ console.log("your result is ",result);
           onClick={() => {
             router.push('/');
           }}
-          className="text-green-700 select-none cursor-pointer text-sm mt-8 "
+          className="text-theme select-none cursor-pointer text-sm mt-8 "
         >
           Select Another Quiz
         </span>

@@ -15,7 +15,7 @@ export default function Home() {
     setSelectQuizToStart(null);
     // set the selectedQuiz back to null
     setSelectedQuiz(null);
-  }, []);
+  }, [setSelectQuizToStart, setSelectedQuiz]);
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -30,7 +30,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [setSelectQuizToStart, setSelectedQuiz]);
+  }, []);
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 

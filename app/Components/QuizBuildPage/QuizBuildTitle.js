@@ -28,7 +28,7 @@ function QuizBuildTitle({ focusProp, onChangeQuizTitle }) {
     if (focus) {
       quizTitleRef.current.focus();
     }
-  }, []);
+  }, [focus]);
 
   useEffect(() => {
     if (typeof selectedIcon.faIcon === 'string') {
