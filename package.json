@@ -1,5 +1,5 @@
 {
-  "name": "quiz-nafs",
+  "name": "quiz-spark",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@langchain/community": "^0.2.21",
+    "@langchain/openai": "^0.2.5",
+    "@next-auth/mongodb-adapter": "^1.1.3",
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "cookies-next": "^4.2.1",
+    "langchain": "^0.2.11",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.3.2",
+    "next": "14.1.4",
+    "next-auth": "^4.24.7",
+    "pdf-parse": "^1.1.1",
     "react": "^18",
+    "react-cookie": "^7.2.0",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-hot-toast": "^2.4.1",
+    "react-toastify": "^10.0.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.0.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.1.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0"
   }
 }
