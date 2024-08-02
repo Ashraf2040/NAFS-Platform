@@ -98,7 +98,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
         updatedQuiz[findIndexQuiz] = newQuiz;
       }
       const id = updatedQuiz[findIndexQuiz]._id;
-      //
+      console.log("your id is ",id)
       const convertIconText = convertFromFaToText(
         updatedQuiz[findIndexQuiz].icon,
       );
@@ -125,7 +125,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
     } else {
       createNewQuiz();
 
-      router.push('/'); // Navigate to main page
+      // router.push('/'); // Navigate to main page
     }
   }
 
