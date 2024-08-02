@@ -46,6 +46,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
       const quizWithTextIcon = {
         ...newQuiz,
         icon: textIcon,
+        _id: uuidv4(),
       };
 
       const res = await fetch('http://localhost:3000/api/quizzes', {

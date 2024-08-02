@@ -32,9 +32,6 @@ const UploadDoc = () => {
       if (res.status === 200) {
         const data = await res.json();
         setUpdatedQuiz(data.result.quiz);
-       
-        const { quizTitle, icon, quizQuestions,id } = data.result.quiz
-  console.log("your data is ",quizQuestions,quizTitle,icon,id)// Pass id to saveQuiz
         saveQuiz(data.result.quiz);
         router.push("/");
         revalidatePath("/");
