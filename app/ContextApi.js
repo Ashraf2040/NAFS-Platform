@@ -26,7 +26,7 @@ export function ContextProvider({ children }) {
     const fetchAllQuizzes = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://nafs-platform.vercel.app/quizzes', {
+        const response = await fetch('https://nafs-platform.vercel.app/api/quizzes', {
           cache: 'no-cache',
         });
 
