@@ -49,7 +49,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
         _id: uuidv4(),
       };
 
-      const res = await fetch('http://localhost:3000/api/quizzes', {
+      const res = await fetch('https://nafs-platform.vercel.app/api/quizzes', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
