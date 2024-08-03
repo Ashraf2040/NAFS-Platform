@@ -68,9 +68,9 @@ export default function Login() {
 
       onSubmit={handleSubmit}
         action=""
-        className="text-xl shadow-lg shadow-green-600 p-4    font-semibold  flex flex-col gap-4"
+        className="text-xl shadow-lg shadow-theme p-4    font-semibold  flex flex-col gap-4"
       >
-        <h3 className="text-center text-green-700 mb-4 ">Login to your account</h3>
+        <h3 className="text-center text-theme mb-4 ">Login to your account</h3>
         <div className="flex  w-full gap-20 justify-between items-center">
           <label htmlFor="email">E-Mail : </label>
           <input
@@ -95,7 +95,7 @@ export default function Login() {
           />
         </div>
 
-        <button className=" brounded-md py-4 w-4/5 mx-auto bg-green-700 text-white">
+        <button className=" brounded-md py-4 w-4/5 mx-auto bg-theme text-white">
           Login
         </button>
       </form>

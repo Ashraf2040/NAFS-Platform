@@ -51,9 +51,9 @@ const Signup = () => {
       <form
         action=""
         onSubmit={handleSubmit}
-        className="text-xl shadow-lg shadow-green-600 p-4    font-semibold  flex flex-col gap-4"
+        className="text-xl shadow-lg shadow-theme p-4    font-semibold  flex flex-col gap-4"
       >
-        <h3 className="text-center text-green-700   mb-4 ">Sign up free account</h3>
+        <h3 className="text-center text-theme   mb-4 ">Sign up free account</h3>
         <div className="flex  w-full gap-20 justify-between items-center">
           <label htmlFor="email">Full Name : </label>
           <input
@@ -102,7 +102,7 @@ const Signup = () => {
 
         <button
           
-          className="  rounded-md py-4 w-4/5 mx-auto bg-green-700 text-white"
+          className="  rounded-md py-4 w-4/5 mx-auto bg-theme text-white"
         >
           Sign Up
         </button>

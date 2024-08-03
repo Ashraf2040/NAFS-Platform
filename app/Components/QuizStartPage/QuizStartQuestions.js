@@ -7,9 +7,12 @@ import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import convertFromFaToText from '@/app/convertFromFaToText';
 import { useSession } from 'next-auth/react';
+import Certificate from '../Certificate';
 
 function QuizStartQuestions({ onUpdateTime }) {
   const [score, setScore] = useState(0);
+  
+  
   const {data:session} = useSession();
   const code = session?.user?.code;
  console.log("object code",code) 
@@ -39,6 +42,8 @@ function QuizStartQuestions({ onUpdateTime }) {
       console.error(error);
     }
   }
+
+  
   
   const time = 30;
   const { quizToStartObject, allQuizzes, setAllQuizzes, userObject } =
@@ -55,6 +60,7 @@ function QuizStartQuestions({ onUpdateTime }) {
 
   const [timer, setTimer] = useState(time);
   let interval;
+  
 
   function startTimer() {
     clearInterval(interval);
@@ -350,6 +356,8 @@ function QuizStartQuestions({ onUpdateTime }) {
           }}
         />
       )}
+
+
     </div>
   );
 }
@@ -359,6 +367,7 @@ export default QuizStartQuestions;
 function ScoreComponent({ quizStartParentProps }) {
   const { quizToStartObject, allQuizzes } = useGlobalContextProvider();
   const { selectQuizToStart } = quizToStartObject;
+  const [isPreview, setIsPreview] = useState(false);
   const numberOfQuestions = selectQuizToStart.quizQuestions.length;
   const {data:session} = useSession();
   const router = useRouter();
@@ -372,6 +381,9 @@ function ScoreComponent({ quizStartParentProps }) {
     setScore,
     score,
   } = quizStartParentProps;
+  const handlePreview = () => {
+    setIsPreview(!isPreview);
+  };
 
   function emojiIconScore() {
     const emojiFaces = [
@@ -417,7 +429,7 @@ console.log("your result is ",result);
         <div className="flex gap-1 flex-col">
           <span className="font-bold text-2xl">Your Score</span>
           <div className="text-[22px] text-center">
-            {score}/{numberOfQuestions}
+            {score }/{numberOfQuestions *10}
           </div>
         </div>
         <button
@@ -449,7 +461,14 @@ console.log("your result is ",result);
         >
           Select Another Quiz
         </span>
+        {isPreview ? (
+        <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score} />
+      ) : (
+        <button onClick={handlePreview}>Preview Certificate</button>
+      )}
       </div>
     </div>
   );
 }
+
+

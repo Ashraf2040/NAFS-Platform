@@ -23,7 +23,7 @@ function PlaceHolder(props) {
         onClick={() => {
           router.push('/quiz-build');
         }}
-        className="p-3 px-4 text-white text-[12px] bg-green-700 rounded-md"
+        className="p-3 px-4 text-white text-[12px] bg-theme rounded-md"
       >
         Create my first Quiz
       </button>
