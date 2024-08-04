@@ -7,12 +7,20 @@ export const POST = async (req,res)=>{
   const {code,score}= await req.json()
   // console.log(code,score)
  
- 
-  console.log(score)
+//   console.log(score)
+
 
   const userData = await User.findOne({code})
-  console.log("your Data is ",typeof(userData.score))
+//   console.log("your Data is ",typeof(userData.score))
+
+  const {trials :previousTrials} = userData
+//   console.log("your type is ",typeof(previousTrials))
+ 
   const updatedScore = Number(score) + Number(userData.score)
+  const updatedTrials = [...previousTrials,score]
+//   console.log("yourUpdatedTrials is ",updatedTrials)
+
+  const totalPoints = updatedTrials.reduce((acc,curr)=>acc+curr ,0)
   //  const filter = {_id : ids}
    
   
@@ -34,7 +42,7 @@ export const POST = async (req,res)=>{
    
   try {
       await connectToDB()
-      await User.findOneAndUpdate({ code }, { score: updatedScore }, { new: true })
+      await User.findOneAndUpdate({ code }, { score: totalPoints, trials: updatedTrials } ,{ new: true })
       return NextResponse.json({message : "Score has been updated"})
   } catch (error) {
       return NextResponse.json({message : error})

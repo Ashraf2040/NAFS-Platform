@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [code, setCode] = useState(0);
-  const [score, setScore] = useState([]);
+  const [role, setRole] = useState("");
 
   const router = useRouter();
 
@@ -28,7 +28,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email,  password, fullName ,code}),
+        body: JSON.stringify({ email,  password, fullName ,code,role}),
       });
 
       if (res.ok) {
@@ -97,6 +97,17 @@ const Signup = () => {
             name="email"
             placeholder="Code"
             onChange={(e) => setCode(Number(e.target.value))}
+          />
+        </div>
+        <div className="flex  w-full gap-20 justify-between items-center">
+          <label htmlFor="email">Role : </label>
+          <input
+            className="rounded-md px-8 py-4 bg-slate-100 "
+            type="text"
+            id="email"
+            name="email"
+            placeholder="ST/AD"
+            onChange={(e) => setRole(e.target.value)}
           />
         </div>
 

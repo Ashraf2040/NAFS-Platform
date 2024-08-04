@@ -1,20 +1,41 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearUser, setUser } from '../reducers/userSlice';
 
 
 
 function Navbar(props) {
   
-
+  const [currentScore,setCurrentScore]=useState(0)
 
 const {data:session} = useSession();
 console.log(session)
+const {user}=useSelector(state=>state.user)
+const dispatch = useDispatch();
 
+setTimeout(()=>{
+  setCurrentScore(user?.score)
+},500)
+useEffect(() => {
+  if (session) {
+    dispatch(setUser(session.user));
+  } else {
+    dispatch(clearUser());
+  }
+  
+  console.log("your user is ",user)
+  if(user!== null){
+    const {code,name,email,score} = user
+    console.log(code,name,email,score)
+    setCurrentScore(score)
+  }
+}, [dispatch, session]);
 
 
   
@@ -30,13 +51,13 @@ console.log(session)
               width={100} // Width of the image
               height={100}
             />
-            <h2 className="text-2xl font-bold flex gap-2">
-              NAFS <span className="text-theme">TRAINING</span>
+            <h2 className="text-2xl font-bold text-theme flex gap-2">
+              NAFS <span className="text-themeYellow">TRAINING</span>
             </h2>
           </Link>
         <div>
-        {session && (
-<span className='text-xl font-medium text-white  bg-themeYellow px-4 rounded-md py-2  '>Score: {session?.user?.score}</span>
+        {session &&  (
+<span className='text-xl font-semibold text-theme px-4 rounded-md py-2  '>Score: <span className='text-themeYellow'>{currentScore}</span> </span>
 )}
         </div>
   

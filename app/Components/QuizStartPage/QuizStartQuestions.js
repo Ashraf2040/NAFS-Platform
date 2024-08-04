@@ -8,11 +8,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import convertFromFaToText from '@/app/convertFromFaToText';
 import { useSession } from 'next-auth/react';
 import Certificate from '../Certificate';
+import { setUserScore } from '@/app/reducers/userSlice';
+import { useDispatch } from 'react-redux';
+import { revalidatePath } from 'next/cache';
 
 function QuizStartQuestions({ onUpdateTime }) {
   const [score, setScore] = useState(0);
   
-  
+  const dispatch=useDispatch();
   const {data:session} = useSession();
   const code = session?.user?.code;
  console.log("object code",code) 
@@ -36,13 +39,14 @@ function QuizStartQuestions({ onUpdateTime }) {
   
       const data = await res.json();
       console.log(data.message); // Log response message
-  
+     revalidatePath("/")
       // Handle successful or failed update based on response
     } catch (error) {
       console.error(error);
     }
   }
 
+  
   
   
   const time = 30;
@@ -77,7 +81,12 @@ function QuizStartQuestions({ onUpdateTime }) {
       });
     }, 1000);
   }
-
+  // useEffect(() => {
+  //   if (isQuizEnded) {
+  //     // dispatch(setUserScore(1)); // Increment score by 1 point
+  //     updateUserInformation(); // Update score in database
+  //   }
+  // }, [isQuizEnded])
   async function saveDataIntoDB() {
     try {
       const id = selectQuizToStart._id;
@@ -98,6 +107,8 @@ function QuizStartQuestions({ onUpdateTime }) {
       if (!res.ok) {
         toast.error('Something went wrong while saving...');
         return;
+      }else{
+        revalidatePath("/")
       }
     } catch (error) {
       console.log(error);
@@ -107,11 +118,12 @@ function QuizStartQuestions({ onUpdateTime }) {
   console.log(indexOfQuizSelected);
 
   useEffect(() => {
+    
     startTimer();
     return () => {
       clearInterval(interval);
     };
-  }, [currentQuestionIndex, indexOfQuizSelected,interval,allQuizzes,startTimer]);
+  }, [currentQuestionIndex, indexOfQuizSelected,interval,allQuizzes]);
 
   useEffect(() => {
     if (timer === 0 && !isQuizEnded) {
@@ -138,7 +150,7 @@ function QuizStartQuestions({ onUpdateTime }) {
         clearInterval(interval);
       }
     }
-  }, [timer,allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
+  }, [allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
 
   // With the useEffect every time the component is loaded up
   //we need to get the index of the quiz we selected inside
@@ -158,6 +170,7 @@ function QuizStartQuestions({ onUpdateTime }) {
         quizQuestion.answeredResult = -1;
       });
       saveDataIntoDB();
+      // dispatch(setUserScore(50));
       updateUserInformation();
     }
   }, [isQuizEnded,]);
@@ -233,8 +246,8 @@ function QuizStartQuestions({ onUpdateTime }) {
       currentQuestionIndex
     ].statistics.correctAttempts += 1;
     // Increment the score by 1
-    setScore((prevState) => prevState + 1);
-
+    setScore((prevState) => prevState + 10);
+  // dispatch(setUserScore(1));
     toast.success('Awesome!');
     // addExperience();
 
@@ -250,6 +263,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       setTimer(0);
       clearInterval(interval);
       setIsQuizEnded(true);
+    dispatch( setUserScore(score + quizQuestions.length * 10) );
       updateUserInformation();
       return;
     }
@@ -420,7 +434,7 @@ console.log("your result is ",result);
     setScore(0);
     console.log(selectQuizToStart);
   }
- 
+  
   return (
     <div className=" flex items-center justify-center rounded-md top-[-100px] border border-gray-200 absolute w-full h-[450px] bg-white">
       {/* Score */}
@@ -453,19 +467,23 @@ console.log("your result is ",result);
           </div>
         </div>
         {/* <span>Or</span> */}
-        <span
+     <div className='flex justify-center items-center gap-20 '>
+      
+         <span
           onClick={() => {
             router.push('/');
           }}
-          className="text-theme select-none cursor-pointer text-sm mt-8 "
+          className="text-theme select-none cursor-pointer text-lg bg-themeYellow font-semibold px-4 py-2 rounded-lg  "
         >
           Select Another Quiz
         </span>
         {isPreview ? (
-        <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score} />
+        <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score}  />
       ) : (
-        <button onClick={handlePreview}>Preview Certificate</button>
-      )}
+        <button onClick={handlePreview}
+        className='text-lg bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme'
+        >Preview Certificate</button>
+      )}</div>
       </div>
     </div>
   );

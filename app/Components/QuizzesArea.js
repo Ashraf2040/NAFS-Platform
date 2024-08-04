@@ -1,21 +1,51 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import QuizCard from './QuizCard';
 import PlaceHolder from './PlaceHolder';
 import useGlobalContextProvider from '../ContextApi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import DropDown from './DropDown';
+import { useSession } from 'next-auth/react';
+import { connectToDB } from '@/libs/mongoDB';
+import Link from 'next/link';
 
 function QuizzesArea({ props }) {
   const { allQuizzes, userObject, isLoadingObject } =
     useGlobalContextProvider();
   const router = useRouter();
   const { user, setUser } = userObject;
+  const [students, setStudents] = useState([])
+  const [statShow, setStatShow] = useState(false)
   const { isLoading } = isLoadingObject;
   console.log(isLoading);
+  const {data:session}=useSession()
+
+  useEffect(() => {
+    const getStudentData = async () => {
+      await fetch('/api/user/getUsers', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          
+         console.log(data)
+          setStudents(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+ 
+              getStudentData();
+  }, [setStudents]);
+      
+
   return (
-    <div className="poppins mx-12 mt-10">
+    <div className="poppins mx-12 mt-10 h-full">
       <div>
         {isLoading ? (
           <div></div>
@@ -26,7 +56,7 @@ function QuizzesArea({ props }) {
             ) : (
               <div>
                 <DropDown />
-                <h2 className="text-xl font-bold text-white bg-themeYellow px-4 rounded-md py-2 max-w-fit">My Quizzes</h2>
+                <h2 className="text-xl font-bold text-theme px-4 rounded-md py-2 max-w-fit">My Quizzes</h2>
                 <div className="mt-6 flex gap-2 flex-wrap">
                   <div className="flex gap-2 flex-wrap">
                     {allQuizzes.map((singleQuiz, quizIndex) => (
@@ -34,8 +64,8 @@ function QuizzesArea({ props }) {
                         <QuizCard singleQuiz={singleQuiz} />
                       </div>
                     ))}
-                  </div>
-                  <div
+                    {session && session.user.role === 'AD' &&
+                    <div
                     onClick={() => router.push('/quiz-build')}
                     className=" cursor-pointer justify-center items-center rounded-[10px]
                    w-[230px] flex flex-col gap-2 border border-gray-100 bg-white p-4"
@@ -49,8 +79,50 @@ function QuizzesArea({ props }) {
                     <span className="select-none opacity-40">
                       Add a new Quiz
                     </span>
+                  </div>}
                   </div>
+                  
+                  
                 </div>
+                <button className="text-xl font-bold text-theme px-4 rounded-md mt-8 py-2 max-w-fit" onClick={() => setStatShow(!statShow)}>Statistics</button>
+
+             { statShow &&
+               <div className="statistcs w-full mt-4 bg-theme h-full rounded-[4px]">
+<table className='w-full px-4 flex flex-col  '>
+  <th className='text-center border-b-4 border-b-themeYellow'>
+    <tr className='text-white grid grid-cols-9  py-1 '>
+    <td className=' mx-auto'>St.Code</td>
+    <td className='col-span-2   w-full text-center'>Name</td>
+    <td className=' mx-auto'>No Of Trials</td>
+    <td className='text-center mx-auto'>Previous Score</td>
+    <td className='text-center mx-auto'>Current Score</td>
+    <td className='text-center mx-auto'>Progress</td>
+    <td className='text-center mx-auto'>Total Points</td>
+    <td className='text-center mx-auto'>Report</td>
+    
+    </tr>
+    
+  </th>
+
+ 
+    {students.map((student, index) => (
+      <tr key={index} className='bg-white w-full grid grid-cols-9 py-1 border-b-2   font-normal mb-2'>
+        <td className=' text-center text-themeYellow'>{student.code}</td>
+        <td className='col-span-2 text-center text-theme font-semibold  w-full '>{student.fullName}</td>
+        <td className=' text-center'>{student.trials.length-1}</td>
+        <td className=' text-center'>{student.trials[student.trials.length-2]}</td>
+        <td className=' text-center'>{student.trials[student.trials.length-1]}</td>
+        <td className={` text-center ${student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"text-themeGreen" : "text-red-600"}`}>
+{student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"Passed" : "Failed"}
+        </td>
+        <td className=' text-center'>{student.score}</td>
+        <td className=' text-center underline text-themeYellow '><Link href={`/report/${student.code}`}>Report</Link></td>
+      </tr>
+    ))}
+   
+  
+</table>
+                </div>}
               </div>
             )}
           </>

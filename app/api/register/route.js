@@ -8,7 +8,7 @@ connectToDB();
 
 export async function POST(request) {
   try {
-    const { fullName, email, password ,code  } = await request.json();
+    const { fullName, email, password ,code,role  } = await request.json();
 
     const user = await User.findOne({ code });
 
@@ -19,14 +19,15 @@ export async function POST(request) {
       );
     }
 
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
+    // const salt = await bcryptjs.genSalt(10);
+    // const hashedPassword = await bcryptjs.hash(password, salt);
 
     const newUser = new User({
       fullName,
       email,
-      password: hashedPassword,
+      password,
       code,
+      role
       
     });
 

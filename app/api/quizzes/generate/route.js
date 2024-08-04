@@ -99,7 +99,7 @@ Given the text which is a summary of the document, generate a quiz based on the 
     });
 
     const result = await runnable.invoke([message]);
-    console.log(result);
+    // console.log(result);
 
     // const { quizzId } = await saveQuizz(result.quizz);
 

@@ -7,8 +7,10 @@ const userSchema = new Schema(
 
     email: { type: String, required: true },
     password: { type: String, required: true },
+    role: { type: String, required: true },
     code: { type: Number, required: true },
-    score: { type: [Number] ,default:[0]},
+    trials: { type: Array, default: [] },
+    score: { type: Number ,default:0},
   },
 
   { timestamps: true }

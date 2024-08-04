@@ -13,7 +13,7 @@ export const POST = async (req) => {
     const { email, password } = reqBody;
 
     const user = await User.findOne({ email });
-    console.log(user);
+    // console.log(user);
     if (!user) {
       return NextResponse.json(
         { message: "THe user is not exist" },
@@ -35,13 +35,14 @@ export const POST = async (req) => {
       email: user.email,
       fullname: user.fullname,
       code:user.code,
-      score:user.score
+      score:user.score,
+      role:user.role
     };
 
     // Create token //
 
     const token = jwt.sign(tokenData, process.env.NEXT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "360s",
     });
 
     const response = NextResponse.json({

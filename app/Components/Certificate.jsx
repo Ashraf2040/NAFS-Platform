@@ -2,16 +2,15 @@
 
 import Image from 'next/image'
 
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { toPng } from 'html-to-image';
 import { useSession } from 'next-auth/react';
+import { useSelector } from 'react-redux';
+
 const Certificate = () => {
 
-
-  const {data:session} = useSession();
-console.log(session)
-
-
+  const {user}= useSelector(state=>state.user)
+  const {data:session}= useSession()
 
   const certificateRef = useRef(null)
   const onButtonClick = useCallback(() => {
@@ -58,7 +57,7 @@ console.log(session)
 
         </div>
         <p className='text-lg absolute bottom-[180px] font-semibold'>For completing the qualifying training for <span className='text-theme'>NAFS</span>  National Tests.</p>
-        <p className='absolute bottom-[150px] font-bold'>Score : <span className='text-theme'>{session?.user?.score}</span> </p>
+        <p className='absolute bottom-[150px] font-bold'>Score : <span className='text-theme'>{user?.score}</span> </p>
 
         <h2 className='absolute bottom-[70px] max-w-fit  px-2 py-1 border-t-2 border-slate-600 left-[180px] font-semibold text-[14px]    '>Abdullah Al-Ghamdi</h2>
         <h2 className='absolute bottom-[70px] right-[180px] font-semibold  text-[14px]   

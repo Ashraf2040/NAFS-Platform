@@ -13,20 +13,20 @@ export const authOptions = {
       credentials: {},
       async authorize(credentials) {
         const { email, password } = credentials 
-        console.log("current email is:",email,password)
+        // console.log("current email is:",email,password)
         try {
           await connectToDB();
           const user = await User.findOne({ email });
           if (!user) {
             return null;
           }
-          const passwordsMatch = await bycrptjs.compare(
-            password,
-            user.password
-          );
-          if (!passwordsMatch) {
-            return null;
-          }
+          // const passwordsMatch = await bycrptjs.compare(
+          //   password,
+          //   user.password
+          // );
+          // if (!passwordsMatch) {
+          //   return null;
+          // }
           return user;
         } catch (error) {
           console.log("Error:", error);
@@ -59,7 +59,7 @@ export const authOptions = {
           });
           const res = await newUser.save();
           if (res.status === 200 || res.status === 201) {
-            console.log(res)
+            // console.log(res)
             return user;
           }
 
@@ -75,6 +75,7 @@ export const authOptions = {
         token.name = user.fullName;
         token.score=user.score
         token.code=user.code
+        token.role=user.role
       }
       return token;
     },
@@ -85,6 +86,7 @@ export const authOptions = {
         session.user.fullName = token.fullName;
         session.user.score=token.score
         session.user.code=token.code
+        session.user.role=token.role
       }
       console.log(session);
       return session;

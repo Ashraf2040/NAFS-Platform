@@ -14,13 +14,14 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import toast, { Toaster } from 'react-hot-toast';
 import Choices from './Choices';
 import IconsComponents from './IconsComponents';
+import Image from 'next/image';
 
 function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
   const prefixes = ['A', 'B', 'C', 'D'];
   const { focus, setFocusFirst } = focusProp;
   const endOfListRef = useRef(null);
   const textAreaRefs = useRef(quizQuestions.map(() => createRef()));
-
+ 
   //
   // Add a new question to the quizQuestions
   // ----------------------------------------
@@ -69,11 +70,13 @@ function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
         correctAttempts: 0,
         incorrectAttempts: 0,
       },
+  
     };
     setQuizQuestions([...quizQuestions, newQuetion]);
     textAreaRefs.current = [...textAreaRefs.current, createRef()];
     // ---------------------------------------------------------------------
   }
+
 
   function deleteQuestion(singleQuestion) {
     const quizQuestionsCopy = [...quizQuestions];
@@ -147,10 +150,11 @@ function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
         lastTextArea.focus();
       }
     }
-  }, [quizQuestions.length]);
+  }, [quizQuestions.length, focus]);
 
   return (
     <div className="p-3 mt-6 flex justify-between border border-theme rounded-md relative">
+      
       <Toaster
         toastOptions={{
           style: {
@@ -182,6 +186,7 @@ function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
               onChange={(e) => {
                 handleInputChange(questionIndex, e.target.value);
               }}
+              imageUrl={singleQuestion.imageUrl}
             />
             <Choices
               questionIndex={questionIndex}
@@ -273,9 +278,11 @@ function CorrectAnswer({ onChangeCorrectAnswer, singleQuestion }) {
 const SingleQuestion = forwardRef(function SingleQuestion(
   { questionIndex, value, onChange },
   ref,
+  imageUrl,
 ) {
   return (
     <div className="w-full  mr-5 mt-3">
+     
       <div className="flex items-center gap-3">
         <div className="flex gap-2 text-[15px] border-gray-200">
           <span>Question</span>
