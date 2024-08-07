@@ -88,7 +88,7 @@ export const authOptions = {
         session.user.code=token.code
         session.user.role=token.role
       }
-      console.log(session);
+      // console.log(session);
       return session;
     },
   },

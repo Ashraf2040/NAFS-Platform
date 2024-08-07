@@ -14,12 +14,12 @@ import { revalidatePath } from 'next/cache';
 
 function QuizStartQuestions({ onUpdateTime }) {
   const [score, setScore] = useState(0);
-  
+  const [images,setImages]=useState([]);
   const dispatch=useDispatch();
   const {data:session} = useSession();
   const code = session?.user?.code;
- console.log("object code",code) 
- console.log("object score",score) 
+//  console.log("object code",code) 
+//  console.log("object score",score) 
   async function updateUserInformation() {
     if (!session || !score) {
       return; // Handle missing session or score
@@ -38,7 +38,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       });
   
       const data = await res.json();
-      console.log(data.message); // Log response message
+      // console.log(data.message); // Log response message
      revalidatePath("/")
       // Handle successful or failed update based on response
     } catch (error) {
@@ -49,38 +49,38 @@ function QuizStartQuestions({ onUpdateTime }) {
   
   
   
-  const time = 30;
+  // const time = 30;
   const { quizToStartObject, allQuizzes, setAllQuizzes, userObject } =
     useGlobalContextProvider();
-    console.log(userObject)
+    // console.log(userObject)
   const { selectQuizToStart } = quizToStartObject;
   const { quizQuestions } = selectQuizToStart;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [indexOfQuizSelected, setIndexOfQuizSelected] = useState(null);
   const [isQuizEnded, setIsQuizEnded] = useState(false);
- 
+
   const { user, setUser } = userObject;
 
-  const [timer, setTimer] = useState(time);
-  let interval;
+  // const [timer, setTimer] = useState(time);
+  // let interval;
   
+// console.log(selectQuizToStart)
+  // function startTimer() {
+  //   clearInterval(interval);
+  //   setTimer(time);
 
-  function startTimer() {
-    clearInterval(interval);
-    setTimer(time);
-
-    interval = setInterval(() => {
-      setTimer((currentTime) => {
-        onUpdateTime(currentTime);
-        if (currentTime === 0) {
-          clearInterval(interval);
-          return 0;
-        }
-        return currentTime - 1;
-      });
-    }, 1000);
-  }
+  //   interval = setInterval(() => {
+  //     setTimer((currentTime) => {
+  //       onUpdateTime(currentTime);
+  //       if (currentTime === 0) {
+  //         clearInterval(interval);
+  //         return 0;
+  //       }
+  //       return currentTime - 1;
+  //     });
+  //   }, 1000);
+  // }
   // useEffect(() => {
   //   if (isQuizEnded) {
   //     // dispatch(setUserScore(1)); // Increment score by 1 point
@@ -103,7 +103,7 @@ function QuizStartQuestions({ onUpdateTime }) {
           }),
         },
       );
-      console.log(allQuizzes[indexOfQuizSelected].quizQuestions);
+      // console.log(allQuizzes[indexOfQuizSelected].quizQuestions);
       if (!res.ok) {
         toast.error('Something went wrong while saving...');
         return;
@@ -115,42 +115,42 @@ function QuizStartQuestions({ onUpdateTime }) {
     }
   }
 
-  console.log(indexOfQuizSelected);
+  // console.log(indexOfQuizSelected);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    startTimer();
-    return () => {
-      clearInterval(interval);
-    };
-  }, [currentQuestionIndex, indexOfQuizSelected,interval,allQuizzes]);
+  //   startTimer();
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [currentQuestionIndex, indexOfQuizSelected,allQuizzes]);
 
-  useEffect(() => {
-    if (timer === 0 && !isQuizEnded) {
-      // Updating the allQuizzes
-      const currentQuizzes = [...allQuizzes];
-      currentQuizzes[indexOfQuizSelected].quizQuestions[
-        currentQuestionIndex
-      ].statistics.totalAttempts += 1;
-      currentQuizzes[indexOfQuizSelected].quizQuestions[
-        currentQuestionIndex
-      ].statistics.incorrectAttempts += 1;
+  // useEffect(() => {
+  //   if ( !isQuizEnded) {
+  //     // Updating the allQuizzes
+  //     const currentQuizzes = [...allQuizzes];
+  //     currentQuizzes[indexOfQuizSelected].quizQuestions[
+  //       currentQuestionIndex
+  //     ].statistics.totalAttempts += 1;
+  //     currentQuizzes[indexOfQuizSelected].quizQuestions[
+  //       currentQuestionIndex
+  //     ].statistics.incorrectAttempts += 1;
 
-      setAllQuizzes(currentQuizzes);
-      // --------------------
-      if (currentQuestionIndex !== quizQuestions.length - 1) {
-        setTimeout(() => {
-          setCurrentQuestionIndex((current) => {
-            return current + 1;
-          });
-        }, 1000);
-      } else {
-        setIsQuizEnded(true);
+  //     setAllQuizzes(currentQuizzes);
+  //     // --------------------
+  //     if (currentQuestionIndex !== quizQuestions.length - 1) {
+  //       setTimeout(() => {
+  //         setCurrentQuestionIndex((current) => {
+  //           return current + 1;
+  //         });
+  //       }, 1000);
+  //     } else {
+  //       setIsQuizEnded(true);
         
-        clearInterval(interval);
-      }
-    }
-  }, [allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
+  //       clearInterval(interval);
+  //     }
+  //   }
+  // }, [allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
 
   // With the useEffect every time the component is loaded up
   //we need to get the index of the quiz we selected inside
@@ -233,8 +233,8 @@ function QuizStartQuestions({ onUpdateTime }) {
       } else {
         // if we select the wrong choice and we are at the end of the question
         // end the quiz
-        setTimer(0);
-        clearInterval(interval);
+        // setTimer(0);
+        // clearInterval(interval);
         setIsQuizEnded(true);
       }
 
@@ -260,8 +260,8 @@ function QuizStartQuestions({ onUpdateTime }) {
         allQuizzes[indexOfQuizSelected].quizQuestions[currentQuestionIndex]
           .correctAnswer
     ) {
-      setTimer(0);
-      clearInterval(interval);
+      // setTimer(0);
+      // clearInterval(interval);
       setIsQuizEnded(true);
     dispatch( setUserScore(score + quizQuestions.length * 10) );
       updateUserInformation();
@@ -304,6 +304,43 @@ function QuizStartQuestions({ onUpdateTime }) {
   //   }
   // }
 
+
+
+// Usage
+useEffect(() => {
+  const getQuizAssets=async()=>{
+    try{
+      const res = await fetch(`http://localhost:3000/api/quizzes?id=${selectQuizToStart._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      // console.log(data.quizzes);
+
+      const currentQuiz =data.quizzes.filter((quiz)=>quiz._id===selectQuizToStart._id)
+     
+      
+
+      // console.log(currentQuiz)
+
+      const currentQuestionAssets=currentQuiz[0].quizAssets
+// console.log(currentQuestionAssets)
+setImages(currentQuestionAssets)
+
+      // setQuizQuestions(data[0].quizQuestions);
+    }catch(error){
+      console.log(error);
+    }
+  }
+  getQuizAssets()
+}, []);
+
+// console.log(images)
+
+const img=images[currentQuestionIndex]?.imgeSrc
+// console.log(img)
   return (
     <div className="relative poppins rounded-sm m-9 w-9/12  ">
       <Toaster
@@ -321,7 +358,16 @@ function QuizStartQuestions({ onUpdateTime }) {
         <div className="bg-theme flex  justify-center items-center rounded-md w-11 h-11 text-white p-3">
           {currentQuestionIndex + 1}
         </div>
-        <p>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
+<div className=' w-full  grid grid-cols-3 items-center gap-4 '>
+<p className={`${img ? 'col-span-2' : 'col-span-3'}`}>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
+{img&&
+ <Image src={img} alt="image" width={300} height={300} className='col-span-1 rounded-md' />
+}
+ 
+  
+ 
+  </div>
+        
       </div>
       {/* The Answers Part */}
       <div className="mt-7 flex flex-col gap-2">
@@ -386,7 +432,7 @@ function ScoreComponent({ quizStartParentProps }) {
   const {data:session} = useSession();
   const router = useRouter();
   //
-  console.log(session?.user?.code)
+  // console.log(session?.user?.code)
   const {
     setIsQuizEnded,
     setIndexOfQuizSelected,
@@ -419,7 +465,7 @@ console.log("your result is ",result);
     return emojiFaces[2];
   }
 
-  console.log(emojiIconScore());
+  
   
 
   function tryAgainFunction() {
@@ -427,12 +473,13 @@ console.log("your result is ",result);
     const newQuizIndex = allQuizzes.findIndex(
       (quiz) => quiz._id === selectQuizToStart._id,
     );
-    console.log(newQuizIndex);
+    // 
+    
     setIndexOfQuizSelected(newQuizIndex);
     setCurrentQuestionIndex(0);
     setSelectedChoice(null);
     setScore(0);
-    console.log(selectQuizToStart);
+    
   }
   
   return (

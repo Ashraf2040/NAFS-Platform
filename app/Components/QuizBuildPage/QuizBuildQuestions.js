@@ -14,14 +14,20 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import toast, { Toaster } from 'react-hot-toast';
 import Choices from './Choices';
 import IconsComponents from './IconsComponents';
-import Image from 'next/image';
 
+import axios from 'axios';
+import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { setQuizAssets } from '@/app/reducers/questionSlice';
+
+// import {Image} from "cloudinary-react"
 function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
   const prefixes = ['A', 'B', 'C', 'D'];
   const { focus, setFocusFirst } = focusProp;
   const endOfListRef = useRef(null);
   const textAreaRefs = useRef(quizQuestions.map(() => createRef()));
- 
+  const [imageMetadata, setImageMetadata] = useState("");
+  const questionImageUrl=useSelector((state)=>state.question.questionImageUrl)
   //
   // Add a new question to the quizQuestions
   // ----------------------------------------
@@ -64,15 +70,19 @@ function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
       mainQuestion: '',
       choices: prefixes.slice(0, 2).map((prefix) => prefix + ' '),
       correctAnswer: '',
+      
       answeredResult: -1,
       statistics: {
         totalAttempts: 0,
         correctAttempts: 0,
         incorrectAttempts: 0,
       },
+      // questionImageUrl: imageReturned,
+      // questionImageMetadata: imageMetadata
   
     };
     setQuizQuestions([...quizQuestions, newQuetion]);
+  
     textAreaRefs.current = [...textAreaRefs.current, createRef()];
     // ---------------------------------------------------------------------
   }
@@ -182,11 +192,12 @@ function QuizBuildQuestions({ focusProp, quizQuestions, setQuizQuestions }) {
             <SingleQuestion
               questionIndex={questionIndex}
               value={singleQuestion.mainQuestion}
+              questionImageUrl={questionImageUrl}
               ref={textAreaRefs.current[questionIndex]}
               onChange={(e) => {
                 handleInputChange(questionIndex, e.target.value);
               }}
-              imageUrl={singleQuestion.imageUrl}
+              // imageUrl={singleQuestion.imageUrl}
             />
             <Choices
               questionIndex={questionIndex}
@@ -256,7 +267,7 @@ function CorrectAnswer({ onChangeCorrectAnswer, singleQuestion }) {
     }
   }
 
-  console.log(singleQuestion);
+  // console.log(singleQuestion);
   return (
     <div className=" flex  gap-1 items-center mt-3">
       <div className="text-[15px]">Correct Answer</div>
@@ -278,12 +289,67 @@ function CorrectAnswer({ onChangeCorrectAnswer, singleQuestion }) {
 const SingleQuestion = forwardRef(function SingleQuestion(
   { questionIndex, value, onChange },
   ref,
-  imageUrl,
 ) {
+
+  const [imageSelected ,setImageSelected]=useState("")
+ const [imageReturned,setimageReturned]=useState("")
+  const [imageMetadata, setImageMetadata] = useState("");
+   const dispatch = useDispatch();
+  //  const questionImageUrl=useSelector((state)=>state.question.questionImageUrl)
+  // const questionImageMetadata=useSelector((state)=>state.question.questionImageMetadata)
+  // console.log("questionImageUrl",questionImageUrl)
+  const uploadImage =async()=>{
+    const formData= new FormData();
+    formData.append("file",imageSelected);
+    formData.append("upload_preset","nuap8xdu");
+    formData.append("tags", value);
+   await fetch("https://api.cloudinary.com/v1_1/drw8phhvm/image/upload",{
+      method:"post",
+      body:formData 
+    }).then(res=>res.json())  
+    .then( data=>{
+      
+    const imgeSrc=data.url
+        dispatch(setQuizAssets({
+          imgeSrc,value
+        }))
+         setimageReturned(imgeSrc)
+
+    }).catch(err=>{
+      console.log(err);
+    })
+
+  }
+
+ 
+      
+   
+  
+// const handleRedux=()=>{
+
+  
+//     dispatch(setQuizAssets({
+//       imageReturned ,value
+//     }))
+//   }
+  
+
   return (
     <div className="w-full  mr-5 mt-3">
-     
+      <div className='w-full flex items-center justify-around gap-4 my-4'>
+      <input  type='file' onChange={(e)=>setImageSelected(e.target.files[0])} className='w-1/5 '/>
+      <button onClick={uploadImage} className='bg-theme p-2 rounded-md text-white '>Upload</button>
+      </div>
+{imageReturned&&
+  <div className='w-full flex items-center justify-center my-4'>
+<Image src={imageReturned} alt="image" width={500} height={500} />
+  </div>
+
+  
+}
+      
       <div className="flex items-center gap-3">
+       
         <div className="flex gap-2 text-[15px] border-gray-200">
           <span>Question</span>
           <span>{questionIndex + 1}</span>

@@ -10,6 +10,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import convertFromFaToText from '@/app/convertFromFaToText';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { restQuizAssets, setQuizAssets } from '@/app/reducers/questionSlice';
 
 function validateQuizQuestions(quizQuestions) {
   for (let question of quizQuestions) {
@@ -38,17 +40,32 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
   const { selectedQuiz, setSelectedQuiz } = selectedQuizObject;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [questionImage, setQuestionImage] = useState("");
+  const questionImageUrl=useSelector((state)=>state.question.questionImageUrl)
 
+
+  // if(questionImageUrl){
+  //   console.log("questionImageUrl, ",questionImageUrl)
+  //   setQuestionImage(questionImageUrl)
+  // }
+  const quizAssets = useSelector((state) => state.question.quizAssets);
   async function createNewQuiz() {
+
+  
     try {
       setIsLoading(true);
       const textIcon = convertFromFaToText(newQuiz.icon);
+       if(questionImageUrl){
+          console.log("questionImageUrl, ",questionImageUrl)
+          setQuestionImage(questionImageUrl)
+        }
       const quizWithTextIcon = {
         ...newQuiz,
         icon: textIcon,
         _id: uuidv4(),
+        quizAssets,
       };
-
+ 
       const res = await fetch('/api/quizzes', {
         method: 'POST',
         headers: {
@@ -67,9 +84,8 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
       console.log(id);
       // Update the _id property of the newQuiz object
       const updatedQuiz = { ...newQuiz, _id: id, icon: textIcon };
-
+       
       setAllQuizzes([...allQuizzes, updatedQuiz]);
-
       toast.success('The quiz has been created successfully!');
     } catch (error) {
       console.log(error);
@@ -88,6 +104,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
       toast.error(isValid.message);
       return;
     }
+    
 
     if (selectedQuiz) {
       const updatedQuiz = [...allQuizzes]; // Assuming allQuizzes contains the current state of quizzes
@@ -125,10 +142,18 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
       } catch (error) {}
     } else {
       createNewQuiz();
-
+       
        router.push('/'); // Navigate to main page
+        // dispatch(restQuizAssets())
     }
   }
+  const dispatch=useDispatch()
+ const handleClikSave = () => {
+  
+    saveQuiz();
+    dispatch(restQuizAssets())
+       
+  };
 
   return (
     <div className="poppins my-12 flex justify-between items-center ">
@@ -140,9 +165,9 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
         <Link href="/upload-file" className='text-2xl md:ml-8 underline cursor-pointer '>From  <span className='text-theme font-semibold'>a document</span></Link>
       </div>
       <button
-        onClick={() => {
-          saveQuiz();
-        }}
+        onClick={
+         handleClikSave
+        }
         className="p-2 px-4 bg-theme rounded-md text-white"
       >
         {isLoading ? 'Loading...' : 'Save'}

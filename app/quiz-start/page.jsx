@@ -16,7 +16,7 @@ function Page(props) {
   const router = useRouter();
 
   const {data:session} = useSession()
-  console.log(session?.user?.code)
+  // console.log(session?.user?.code)
   useEffect(() => {
     if (selectQuizToStart === null) {
       router.push('/');

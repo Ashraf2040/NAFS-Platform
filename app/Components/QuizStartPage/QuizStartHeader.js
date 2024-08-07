@@ -33,7 +33,7 @@ function QuizStartHeader({ parentTimer }) {
       </div>
       {/*  */}
       {/* Timer */}
-      <div className="flex gap-2 items-center">
+      {/* <div className="flex gap-2 items-center">
         <FontAwesomeIcon
           className="text-theme"
           width={20}
@@ -42,7 +42,7 @@ function QuizStartHeader({ parentTimer }) {
         />
 
         <span>00:00:{parentTimer}</span>
-      </div>
+      </div> */}
     </div>
   );
 }

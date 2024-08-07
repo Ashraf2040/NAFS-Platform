@@ -18,7 +18,7 @@ function QuizzesArea({ props }) {
   const [students, setStudents] = useState([])
   const [statShow, setStatShow] = useState(false)
   const { isLoading } = isLoadingObject;
-  console.log(isLoading);
+  // console.log(isLoading);
   const {data:session}=useSession()
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function QuizzesArea({ props }) {
         .then((response) => response.json())
         .then((data) => {
           
-         console.log(data)
+        //  console.log(data)
           setStudents(data);
         })
         .catch((error) => {

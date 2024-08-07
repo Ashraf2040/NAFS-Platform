@@ -9,6 +9,7 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { Toaster } from 'react-hot-toast';
 import IconsComponents from '../Components/QuizBuildPage/IconsComponents';
 import useGlobalContextProvider from '../ContextApi';
+import { useSelector } from 'react-redux';
 
 function Page(props) {
   const prefixes = ['A', 'B', 'C', 'D'];
@@ -16,8 +17,10 @@ function Page(props) {
   const { selectedIcon } = selectedIconObject;
   const { selectedQuiz } = selectedQuizObject;
   const [focusFirst, setFocusFirst] = useState(true);
-
-  const [quizQuestions, setQuizQuestions] = useState(() => {
+const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageUrl)
+// console.log(currentQuestionimageUrl)
+  const [
+    quizQuestions, setQuizQuestions] = useState(() => {
     if (selectedQuiz) {
       return selectedQuiz.quizQuestions;
     } else {
@@ -25,6 +28,7 @@ function Page(props) {
         {
           id: uuidv4(),
           mainQuestion: '',
+          questionImageUrl:currentQuestionimageUrl,
           choices: prefixes.slice(0, 2).map((prefix) => prefix + '. '),
           correctAnswer: '',
           answeredResult: -1,
@@ -33,6 +37,7 @@ function Page(props) {
             correctAttempts: 0,
             incorrectAttempts: 0,
           },
+          // quizImageUrl: '',
         },
       ];
     }
@@ -47,17 +52,19 @@ function Page(props) {
         icon: selectedIcon.faIcon,
         quizTitle: '',
         quizQuestions: quizQuestions,
+        // quizImageUrl:""
       };
     }
   });
 
-  console.log(newQuiz);
+  // console.log(newQuiz);
 
   useEffect(() => {
     setNewQuiz((prevQuiz) => ({
       ...prevQuiz,
       icon: selectedIcon.faIcon,
       quizQuestions: quizQuestions,
+      // quizImageUrl:""
     }));
   }, [quizQuestions, selectedIcon.faIcon]);
 
