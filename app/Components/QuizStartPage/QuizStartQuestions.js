@@ -310,7 +310,7 @@ function QuizStartQuestions({ onUpdateTime }) {
 useEffect(() => {
   const getQuizAssets=async()=>{
     try{
-      const res = await fetch(`http://localhost:3000/api/quizzes?id=${selectQuizToStart._id}`, {
+      const res = await fetch(`https://nafs-platform.vercel.app/api/quizzes?id=${selectQuizToStart._id}`, {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
