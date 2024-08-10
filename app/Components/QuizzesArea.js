@@ -89,7 +89,7 @@ function QuizzesArea({ props }) {
              { statShow &&
                <div className="statistcs w-full mt-4 bg-theme h-full rounded-[4px]">
 <table className='w-full px-4 flex flex-col  '>
-  <th className='text-center border-b-4 border-b-themeYellow'>
+  <th className='text-center '>
     <tr className='text-white grid grid-cols-9  py-1 '>
     <td className=' mx-auto'>St.Code</td>
     <td className='col-span-2   w-full text-center'>Name</td>
@@ -106,7 +106,7 @@ function QuizzesArea({ props }) {
 
  
     {students.map((student, index) => (
-      <tr key={index} className='bg-white w-full grid grid-cols-9 py-1 border-b-2   font-normal mb-2'>
+      <tr key={index} className='bg-white w-full grid grid-cols-9 py-1    font-normal mb-2'>
         <td className=' text-center text-themeYellow'>{student.code}</td>
         <td className='col-span-2 text-center text-theme font-semibold  w-full '>{student.fullName}</td>
         <td className=' text-center'>{student.trials.length-1}</td>

@@ -97,3 +97,24 @@ body {
 .poppins-bold {
   font-weight: 700; /* Bold weight */
 }
+.student-name {
+  font-family: 'Whisper'; 
+
+  /* Add other font styles as needed */
+}
+.exclude-from-print {
+  display: block;
+}
+
+@media print {
+  .exclude-from-print {
+    display: none; /* Show the element for printing */
+  }
+}
+#element-to-top {
+  /* Default alignment */
+  text-align: left; /* Or any other default alignment */
+}
+.component-container {
+  page-break-inside: avoid; /* Prevent page breaks within the container */
+}

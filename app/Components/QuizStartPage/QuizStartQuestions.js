@@ -9,7 +9,7 @@ import convertFromFaToText from '@/app/convertFromFaToText';
 import { useSession } from 'next-auth/react';
 import Certificate from '../Certificate';
 import { setUserScore } from '@/app/reducers/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { revalidatePath } from 'next/cache';
 
 function QuizStartQuestions({ onUpdateTime }) {
@@ -18,6 +18,7 @@ function QuizStartQuestions({ onUpdateTime }) {
   const dispatch=useDispatch();
   const {data:session} = useSession();
   const code = session?.user?.code;
+  const currentUser =useSelector((state)=>state.user)
 //  console.log("object code",code) 
 //  console.log("object score",score) 
   async function updateUserInformation() {
@@ -60,7 +61,7 @@ function QuizStartQuestions({ onUpdateTime }) {
   const [indexOfQuizSelected, setIndexOfQuizSelected] = useState(null);
   const [isQuizEnded, setIsQuizEnded] = useState(false);
 
-  const { user, setUser } = userObject;
+  // const { user, setUser } = userObject;
 
   // const [timer, setTimer] = useState(time);
   // let interval;
@@ -190,7 +191,7 @@ function QuizStartQuestions({ onUpdateTime }) {
     setAllQuizzes(currentAllQuizzes);
     //------------------------------------
   }
-
+  console.log(score)
   function moveToTheNextQuestion() {
     // Check if the we did select the an answer by using the answerResult proprety if
     //it's still equal to -1
@@ -253,6 +254,8 @@ function QuizStartQuestions({ onUpdateTime }) {
 
     // This will stop the timer and end the quiz when currentQuestionIndex is the last
     // and only if we select the correct otherwise the timer is still running
+
+    
     if (
       currentQuestionIndex === quizQuestions.length - 1 &&
       allQuizzes[indexOfQuizSelected].quizQuestions[currentQuestionIndex]
@@ -263,11 +266,15 @@ function QuizStartQuestions({ onUpdateTime }) {
       // setTimer(0);
       // clearInterval(interval);
       setIsQuizEnded(true);
-    dispatch( setUserScore(score + quizQuestions.length * 10) );
+     dispatch(setUserScore(Number(score) +10 ));
       updateUserInformation();
+      
       return;
     }
-
+if(isQuizEnded){
+  dispatch( setUserScore(score) );
+}
+ console.log(score)
     // increment the currentQuestionIndex by 1 to go to the next question
     setTimeout(() => {
       setCurrentQuestionIndex((current) => current + 1);
@@ -451,7 +458,7 @@ function ScoreComponent({ quizStartParentProps }) {
       'happy-emoji.png',
       'very-happy-emoji.png',
     ];
-    const result = (score / selectQuizToStart.quizQuestions.length) * 100;
+    const result = (score / selectQuizToStart.quizQuestions.length) * 10;
 console.log("your result is ",result);
 
     if (result < 25) {
@@ -466,7 +473,7 @@ console.log("your result is ",result);
   }
 
   
-  
+  console.log(score)
 
   function tryAgainFunction() {
     setIsQuizEnded(false);

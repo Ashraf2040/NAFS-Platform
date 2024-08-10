@@ -15,6 +15,7 @@ module.exports = {
       colors: {
         mainColor: 'rgb(31, 113, 242)',
         theme: '#4C3D8F',
+        // theme: 'black',
         themeGreen: '#4DB27B',
         themeYellow: '#F5A053',
         themeBlue: '#52B5C3',
