@@ -68,7 +68,7 @@ export default function Login() {
 
       onSubmit={handleSubmit}
         action=""
-        className="text-xl shadow-lg shadow-theme p-4 w-[95%]    font-semibold  flex flex-col gap-4  "
+        className="text-xl shadow-lg shadow-theme p-4     font-semibold  flex flex-col gap-4  "
       >
         <h3 className="text-center text-theme mb-4 ">Login to your account</h3>
         <div className="flex-col md:flex-row   w-full md:gap-20 justify-between items-center">

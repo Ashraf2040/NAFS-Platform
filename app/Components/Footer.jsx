@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className=" mt-20 boreder-t-1 border-gray-200">
   <div className="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8 border-t-[1px] border-gray-200 ">
-    <div className="sm:flex sm:items-center sm:justify-between">
+    <div className="flex flex-col  items-center md:flex-row justify-between">
       
       <Image src="/logonew.svg" alt='' width={50} height={50} />
 
