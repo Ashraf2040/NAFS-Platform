@@ -61,7 +61,7 @@ function QuizCard({ singleQuiz }) {
   }
 
   return (
-    <div className="rounded-[10px] flex flex-col gap-2 border border-gray-300 bg-white p-4">
+    <div className="rounded-[10px]  flex flex-col items-center  gap-2 border border-gray-300 bg-white p-4">
       {/* Image Container */}
       <div className="relative bg-theme w-full h-32 flex justify-center items-center  rounded-md ">
         {/* More Options Icon */}
@@ -90,7 +90,8 @@ function QuizCard({ singleQuiz }) {
       <div className="flex gap-3">
         {/* success rate area */}
         <div className="flex gap-1 items-center">
-          <Image src="/target-icon.png" width={20} height={10} alt="" />
+          {/* <Image src="/target-icon.png" width={20} height={10} alt="" /> */}
+          <Image src="/star.png" width={20} height={10} alt="" />
           <span className=" text-[12px] ">
             Success rate: {globalSuccessRate}%
           </span>

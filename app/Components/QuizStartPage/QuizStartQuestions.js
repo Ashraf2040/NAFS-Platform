@@ -349,7 +349,7 @@ setImages(currentQuestionAssets)
 const img=images[currentQuestionIndex]?.imgeSrc
 // console.log(img)
   return (
-    <div className="relative poppins rounded-sm m-9 w-9/12  ">
+    <div className="relative poppins rounded-sm my-9 md:w-9/12 w-[95%]   ">
       <Toaster
         toastOptions={{
           // Define default options
@@ -365,10 +365,10 @@ const img=images[currentQuestionIndex]?.imgeSrc
         <div className="bg-theme flex  justify-center items-center rounded-md w-11 h-11 text-white p-3">
           {currentQuestionIndex + 1}
         </div>
-<div className=' w-full  grid grid-cols-3 items-center gap-4 '>
-<p className={`${img ? 'col-span-2' : 'col-span-3'}`}>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
+<div className=' w-full  grid lg:grid-cols-3  items-center gap-4 '>
+<p className={`${img ? 'md:col-span-2' : 'col-span-3'} `}>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
 {img&&
- <Image src={img} alt="image" width={300} height={300} className='col-span-1 rounded-md' />
+ <Image src={img} alt="image" width={400} height={400} className='col-span-1 rounded-md' />
 }
  
   
@@ -521,16 +521,9 @@ console.log("your result is ",result);
           </div>
         </div>
         {/* <span>Or</span> */}
-     <div className='flex justify-center items-center gap-20 '>
+     <div className='flex justify-center items-center  '>
       
-         <span
-          onClick={() => {
-            router.push('/');
-          }}
-          className="text-theme select-none cursor-pointer text-lg bg-themeYellow font-semibold px-4 py-2 rounded-lg  "
-        >
-          Select Another Quiz
-        </span>
+      
         {isPreview ? (
         <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score}  />
       ) : (
@@ -542,5 +535,3 @@ console.log("your result is ",result);
     </div>
   );
 }
-
-

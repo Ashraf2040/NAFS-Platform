@@ -33,10 +33,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className='' >
       
       <head>
-        <title>NAFS QUIA APP</title>
+        <title>NAFS QUIZ APP</title>
       </head>
 
-      <body className={`bg-[url("/background.jpg")] bg-cover ${poppins.className}`}>
+      <body className={` bg-cover ${poppins.className}  `}>
       <Provider store={store}>
         <ContextProvider>
         

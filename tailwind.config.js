@@ -14,15 +14,22 @@ module.exports = {
       },
       colors: {
         mainColor: 'rgb(31, 113, 242)',
-        theme: '#4C3D8F',
+        theme: '#234c63',
+        // theme: '#4C3D8F',
         // theme: 'black',
         themeGreen: '#4DB27B',
-        themeYellow: '#F5A053',
+        themeYellow: '#fdc57b',
         themeBlue: '#52B5C3',
         
 
       },
+    screens: {
+      xs: "480px",
+      sm: "768px",
+      md: "1060px",
+      lg: "1200px",
+      xl: "1700px",
     },
   },
   plugins: [],
-};
+}}

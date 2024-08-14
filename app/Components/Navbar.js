@@ -33,17 +33,18 @@ function Navbar(props) {
 
   return (
   
-      <div className="px-4 sm:flex sm:flex-col md:flex-row w-full sm:items-center sm:justify-between">
-        <div className=" items-center     flex justify-between max-h-fit">
-          <Link href="/" className="flex gap-1 items-center">
+      <div className="relative py-4 md:px-8    sm:flex sm:flex-col md:flex-row w-full  justify-between  shadow-md shadow-theme">
+      
+        <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
+          <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
             <Image
-              src="/hero-img.svg"
+              src="/logonew.svg"
               alt=""
-              width={100}
-              height={100}
+              width={50}
+              height={50}
             />
-            <h2 className="sm:text-xl font-bold  md:text-xl  text-theme flex gap-2">
-              NAFS <span className="text-themeYellow">TRAINING</span>
+            <h2 className="text-2xl text-center  font-bold  md:text-3xl  text-theme flex gap-2">
+              NAFS <span className="text-themeYellow">Training Platform.</span>
             </h2>
           </Link>
           
@@ -56,17 +57,17 @@ function Navbar(props) {
             )}
           </div>
         <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-          <div className='flex items-center justify-center gap-6 relative'>
+          <div className='flex items-center  flex-col md:flex-row justify-center gap-6 relative'>
             {session && (
-              <div className="flex gap-2">
-                <span className='text-xl text-theme font-medium'>
-                  Welcome: <span className='text-themeYellow'>{myUser?.name}</span>
+              <div className="flex gap-2 ">
+                <span className='text-[19px] text-theme font-bold'>
+                   <span className='text-themeYellow'>{myUser?.name}</span>
                 </span>
               </div>
             )}
             {session ? (
               <button
-                className="block rounded-lg bg-theme px-2 py-2 text-sm font-medium text-white transition hover:bg-purple-800 focus:outline-none"
+                className="block rounded-lg bg-theme px-2 py-2 text-sm font-medium text-white transition focus:outline-none  w-4/5 md:w-fit"
                 type="button"
                 onClick={() => signOut()}
               >
@@ -74,7 +75,7 @@ function Navbar(props) {
               </button>
             ) : (
               <button
-                className="block rounded-lg bg-theme px-7 py-3 text-sm font-medium text-white transition hover:bg-purple-800 focus:bg-purple-800 focus:outline-none"
+                className="block rounded-lg bg-theme px-7 py-3 text-sm font-medium text-white transition focus:outline-none"
                 type="button"
                 onClick={() => {
                   router.push('/login');

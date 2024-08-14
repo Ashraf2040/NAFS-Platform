@@ -58,9 +58,9 @@ function QuizzesArea({ props }) {
                 <DropDown />
                 <h2 className="text-xl font-bold text-theme px-4 rounded-md py-2 max-w-fit">My Quizzes</h2>
                 <div className="mt-6 flex gap-2 flex-wrap">
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 flex-wrap items-center  ">
                     {allQuizzes.map((singleQuiz, quizIndex) => (
-                      <div key={quizIndex}>
+                      <div key={quizIndex} className='flex-grow md:flex-grow-0'>
                         <QuizCard singleQuiz={singleQuiz} />
                       </div>
                     ))}
@@ -112,11 +112,11 @@ function QuizzesArea({ props }) {
         <td className=' text-center'>{student.trials.length-1}</td>
         <td className=' text-center'>{student.trials[student.trials.length-2]}</td>
         <td className=' text-center'>{student.trials[student.trials.length-1]}</td>
-        <td className={` text-center ${student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"text-themeGreen" : "text-red-600"}`}>
+        <td className={` text-center ${student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"text-themeGreen font-semibold" : "text-red-600 font-semibold"}`}>
 {student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"Passed" : "Failed"}
         </td>
         <td className=' text-center'>{student.score}</td>
-        <td className=' text-center underline text-themeYellow '><Link href={`/report/${student.code}`}>Report</Link></td>
+        <td className=' text-center underline text-theme font-semibold '><Link href={`/report/${student.code}`}>Report</Link></td>
       </tr>
     ))}
    
@@ -127,11 +127,11 @@ function QuizzesArea({ props }) {
             )}
           </>
         ) : (
-          <div className="  h-96 flex flex-col gap-4 justify-center items-center">
-            <h2 className="font-bold text-5xl text-themeYellow">
+          <div className="  h-96 flex flex-col text-2xl gap-4 justify-center items-center">
+            <h2 className="font-bold md:text-5xl  text-themeYellow">
             <span className="text-theme">NAFS</span>  Training Pltform 
             </h2>
-            <span className="text-xl font-semibold ">
+            <span className="text-xl font-semibold text-center ">
               Unlock Your Potential with Personalized Quizzes
             </span>
             <button

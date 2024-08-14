@@ -28,7 +28,7 @@ function Page(props) {
   }
 
   return (
-    <div className="relative poppins flex flex-col px-24 mt-[35px] ">
+    <div className="relative poppins flex flex-col  px-6 md:px-12 lg:px-24 mt-[35px] ">
       {selectQuizToStart === null ? (
         <div className="  h-svh flex flex-col gap-2 items-center justify-center">
           <Image src="/errorIcon.png" alt="" width={180} height={180} />
