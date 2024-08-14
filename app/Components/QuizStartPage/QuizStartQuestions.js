@@ -368,7 +368,7 @@ const img=images[currentQuestionIndex]?.imgeSrc
 <div className=' w-full  grid lg:grid-cols-3  items-center gap-4 '>
 <p className={`${img ? 'md:col-span-2' : 'col-span-3'} `}>{quizQuestions[currentQuestionIndex].mainQuestion}</p>
 {img&&
- <Image src={img} alt="image" width={300} height={300} className='col-span-1 rounded-md' />
+ <Image src={img} alt="image"  className='col-span-1 rounded-md' width={300} height={300}  />
 }
  
   
