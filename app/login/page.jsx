@@ -71,7 +71,7 @@ export default function Login() {
         className="text-xl shadow-lg shadow-theme p-4     font-semibold  flex flex-col gap-4  "
       >
         <h3 className="text-center text-theme mb-4 ">Login to your account</h3>
-        <div className="flex-col md:flex-row   w-full md:gap-20 justify-between items-center">
+        <div className="flex-col md:flex-row  w-full gap-20 justify-between items-center">
           <label htmlFor="email">E-Mail : </label>
           <input
             className="rounded-md px-8 py-4 bg-slate-100  outline-none"

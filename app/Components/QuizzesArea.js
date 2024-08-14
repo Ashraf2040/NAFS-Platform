@@ -107,7 +107,7 @@ function QuizzesArea({ props }) {
  
     {students.map((student, index) => (
       <tr key={index} className='bg-white w-full grid grid-cols-9 py-1    font-normal mb-2'>
-        <td className=' text-center text-themeYellow'>{student.code}</td>
+        <td className=' text-center font-semibold text-red-500'>{student.code}</td>
         <td className='col-span-2 text-center text-theme font-semibold  w-full '>{student.fullName}</td>
         <td className=' text-center'>{student.trials.length-1}</td>
         <td className=' text-center'>{student.trials[student.trials.length-2]}</td>
@@ -138,7 +138,7 @@ function QuizzesArea({ props }) {
               onClick={() => {
                 setUser((prevUser) => ({ ...prevUser, isLogged: true }));
               }}
-              className="p-4 bg-theme text-white rounded-md"
+              className="p-4 bg-theme text-white font-semibold rounded-md"
             >
               Get Started Now!
             </button>
