@@ -8,6 +8,7 @@ import Navbar from './Components/Navbar';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Footer from './Components/Footer';
+import NavBar1 from './Components/NavBar1';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
       <Provider store={store}>
         <ContextProvider>
         
+      {/* <NavBar1 />   */}
       <Navbar />  
           <main className='min-h-screen h-full' >{children}</main>
          <Footer/>

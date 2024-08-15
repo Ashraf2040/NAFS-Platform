@@ -15,7 +15,7 @@ const galada = Galada({
   variable: '--font-poppins',
   weight: [ '400'],
 });
-const Certificate = () => {
+const Certificate = ({setIsPreview}) => {
 
   const {user}= useSelector(state=>state.user)
   const {data:session}= useSession()
@@ -54,6 +54,7 @@ const Certificate = () => {
   return (
    
       <div className=' flex items-center justify-center rounded-md gap-10    w-full top-[-70px] absolute h-[500px]'>
+         <button onClick={()=>setIsPreview(false)} className='w-6 h-6 bg-white text-theme font-semibold rounded-full absolute top-2 right-4 z-40'>X</button>
         <div className=' w-full      h-full   flex justify-center items-center ' ref={certificateRef}>
         <Image src="/certificate1.png" alt="certificate"  className=' rounded-md' fill/>
         
@@ -70,7 +71,7 @@ const Certificate = () => {
         </div>
      <div className='flex justify-center gap-4 items-center absolute right-0 -bottom-20 '>
      <button onClick={onButtonClick} className='block  cursor-pointer bg-theme text-white px-4 py-2 rounded-md  font-bold text-lg'>Save</button>
-     <button onClick={handlePrint} className='cursor-pointer bg-theme px-4 py-2 rounded-md  font-bold text-lg text-white'>Print</button>
+     {/* <button onClick={handlePrint} className='cursor-pointer bg-theme px-4 py-2 rounded-md  font-bold text-lg text-white'>Print</button> */}
      </div> 
         
     </div>

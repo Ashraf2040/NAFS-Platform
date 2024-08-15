@@ -189,7 +189,7 @@ function QuizStartQuestions({ onUpdateTime }) {
     ].answeredResult = choiceIndexClicked;
 
     setAllQuizzes(currentAllQuizzes);
-    //------------------------------------
+    console.log(currentAllQuizzes)
   }
   console.log(score)
   function moveToTheNextQuestion() {
@@ -418,8 +418,10 @@ const img=images[currentQuestionIndex]?.imgeSrc
             setIndexOfQuizSelected,
             setCurrentQuestionIndex,
             setSelectedChoice,
+            selectedChoice,
             score,
             setScore,
+            quizQuestions,
           }}
         />
       )}
@@ -435,6 +437,7 @@ function ScoreComponent({ quizStartParentProps }) {
   const { quizToStartObject, allQuizzes } = useGlobalContextProvider();
   const { selectQuizToStart } = quizToStartObject;
   const [isPreview, setIsPreview] = useState(false);
+  const [isResultPreview, setIsResultPreview] = useState(false);
   const numberOfQuestions = selectQuizToStart.quizQuestions.length;
   const {data:session} = useSession();
   const router = useRouter();
@@ -445,12 +448,40 @@ function ScoreComponent({ quizStartParentProps }) {
     setIndexOfQuizSelected,
     setCurrentQuestionIndex,
     setSelectedChoice,
+    selectedChoice,
     setScore,
     score,
+    quizQuestions,
   } = quizStartParentProps;
   const handlePreview = () => {
     setIsPreview(!isPreview);
   };
+  function getUserAnswer(questionIndex) {
+    // Access the chosen answer index from the selectedChoice state
+    const chosenAnswerIndex = quizStartParentProps.selectedChoice
+  
+    console.log(chosenAnswerIndex)
+    console.log(questionIndex)
+    // Check if an answer was chosen for the current question
+    if (chosenAnswerIndex !== null && chosenAnswerIndex >= 0 && quizQuestions[questionIndex].choices[chosenAnswerIndex]) {
+      // Return the chosen answer text based on the index
+      return quizQuestions[questionIndex].choices[chosenAnswerIndex];
+    } else {
+      // Handle the case where no answer was chosen
+      return 'No answer chosen';
+    }
+  }
+
+
+ 
+
+  function isAnswerCorrect(questionIndex) {
+    return (
+      quizQuestions[questionIndex].answeredResult ==
+      quizQuestions[questionIndex].correctAnswer
+    );
+  }
+
 
   function emojiIconScore() {
     const emojiFaces = [
@@ -475,6 +506,8 @@ console.log("your result is ",result);
   
   console.log(score)
 
+ 
+
   function tryAgainFunction() {
     setIsQuizEnded(false);
     const newQuizIndex = allQuizzes.findIndex(
@@ -488,9 +521,9 @@ console.log("your result is ",result);
     setScore(0);
     
   }
-  
+
   return (
-    <div className=" flex items-center justify-center rounded-md top-[-100px] border border-gray-200 absolute w-full h-[450px] bg-white">
+    <div className=" flex items-center justify-center rounded-md top-[-80px] border border-gray-200 absolute w-full h-[480px] bg-white">
       {/* Score */}
       <div className=" flex gap-4 items-center justify-center flex-col">
         <Image src={`/${emojiIconScore()}`} alt="" width={100} height={100} />
@@ -525,13 +558,40 @@ console.log("your result is ",result);
       
       
         {isPreview ? (
-        <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score}  />
+        <Certificate userName={session?.user?.name} quizTitle={selectQuizToStart.title} score={score} setIsPreview={setIsPreview}  />
       ) : (
         <button onClick={handlePreview}
-        className='text-lg bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme'
+        className='text-lg absolute top-2 right-2 bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme'
         >Preview Certificate</button>
       )}</div>
+     <button onClick={() => setIsResultPreview(!isResultPreview)}
+        className={`${isPreview ? "hidden" : "block"} text-lg absolute bottom-2   bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme`}
+        >Quiz Preview</button>
       </div>
+      {isResultPreview && ( <div className="flex items-center justify-center rounded-md border border-gray-200 absolute w-full min-h-[480px] overflow-y-scroll flex-col font-semibold bg-white gap-6 p-10 ">
+        <h1 className="bg-theme text-themeYellow py-2 px-6 rounded-md">Review Questions</h1>
+        <div className="w-full px-4 flex flex-col gap-4">
+          {quizQuestions.map((question, index) => (
+            <div key={index} className="my-2">
+              <h1 className="">
+                <span className="font-extrabold  text-theme  rounded-md ">Question {index + 1} :</span>
+                <span className="ml-2">{question.mainQuestion}</span>
+              </h1>
+              <h1 className=" min-w-3/5 flex items-center gap-4 font-normal text-sm">Your Answer is :
+              <span className={`text-${
+                isAnswerCorrect(index) ? 'green-600' : 'red-500'
+              }`}>
+                {getUserAnswer(index)}
+              </span>
+              </h1>
+              
+              <h1 className="text-green-600 min-w-3/5  flex items-center gap-4 font-normal text-sm">Correct Answer: <span className=''>{question.choices[question.correctAnswer]}</span>  <span className='absolute right-4'>Points : {`${isAnswerCorrect(index) ? 10 : 0}`}</span></h1>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={()=>setIsResultPreview(false)} className='w-6 h-6 bg-theme text-white rounded-full absolute top-2 right-4'>X</button>
+      </div>)}
     </div>
   );
 }

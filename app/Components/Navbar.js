@@ -33,7 +33,7 @@ function Navbar(props) {
 
   return (
   
-      <div className="relative py-4 md:px-8   sm:flex sm:flex-col md:flex-row w-full  justify-between  bg-gray-100 shadow-md shadow-theme">
+      <div className="relative py-4 md:px-8   sm:flex sm:flex-col md:flex-row w-full  justify-between   shadow-sm shadow-theme">
       
         <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
           <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
@@ -51,7 +51,7 @@ function Navbar(props) {
         </div>
         <div className='hidden lg:flex'>
             {session && (
-              <span className='h-fit py-2 font-semibold text-white bg-theme flex items-center justify-center px-4 rounded-md '>
+              <span className='h-fit py-2 font-semibold text-theme flex items-center justify-center px-4 rounded-md '>
                 Score : <span className='ml-2'>{user?.score}</span>
               </span>
             )}
@@ -67,7 +67,7 @@ function Navbar(props) {
             )}
             {session ? (
               <button
-                className="block rounded-lg bg-theme px-2 py-2 text-sm font-semibold text-white transition focus:outline-none  w-4/5 md:w-fit"
+                className="block rounded-full bg-theme px-2 py-2 text-sm font-semibold text-white transition focus:outline-none  w-4/5 md:w-fit"
                 type="button"
                 onClick={() => signOut()}
               >

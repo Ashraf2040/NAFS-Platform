@@ -116,7 +116,7 @@ function QuizzesArea({ props }) {
 {student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"Passed" : "Failed"}
         </td>
         <td className=' text-center'>{student.score}</td>
-        <td className=' text-center underline text-theme font-semibold '><Link href={`/report/${student.code}`}>Report</Link></td>
+        <td className=' text-center underline text-themeYellow font-semibold '><Link href={`/report/${student.code}`}>Report</Link></td>
       </tr>
     ))}
    
