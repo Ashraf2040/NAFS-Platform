@@ -11,6 +11,8 @@ import Certificate from '../Certificate';
 import { setUserScore } from '@/app/reducers/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { revalidatePath } from 'next/cache';
+import { setAnswers } from '@/app/reducers/answersSlice';
+import Link from 'next/link';
 
 function QuizStartQuestions({ onUpdateTime }) {
   const [score, setScore] = useState(0);
@@ -19,6 +21,8 @@ function QuizStartQuestions({ onUpdateTime }) {
   const {data:session} = useSession();
   const code = session?.user?.code;
   const currentUser =useSelector((state)=>state.user)
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [quiz, setQuiz] = useState("");
 //  console.log("object code",code) 
 //  console.log("object score",score) 
   async function updateUserInformation() {
@@ -47,6 +51,9 @@ function QuizStartQuestions({ onUpdateTime }) {
     }
   }
 
+
+  console.log(userAnswers)
+  console.log(quiz)
   
   
   
@@ -61,33 +68,7 @@ function QuizStartQuestions({ onUpdateTime }) {
   const [indexOfQuizSelected, setIndexOfQuizSelected] = useState(null);
   const [isQuizEnded, setIsQuizEnded] = useState(false);
 
-  // const { user, setUser } = userObject;
-
-  // const [timer, setTimer] = useState(time);
-  // let interval;
-  
-// console.log(selectQuizToStart)
-  // function startTimer() {
-  //   clearInterval(interval);
-  //   setTimer(time);
-
-  //   interval = setInterval(() => {
-  //     setTimer((currentTime) => {
-  //       onUpdateTime(currentTime);
-  //       if (currentTime === 0) {
-  //         clearInterval(interval);
-  //         return 0;
-  //       }
-  //       return currentTime - 1;
-  //     });
-  //   }, 1000);
-  // }
-  // useEffect(() => {
-  //   if (isQuizEnded) {
-  //     // dispatch(setUserScore(1)); // Increment score by 1 point
-  //     updateUserInformation(); // Update score in database
-  //   }
-  // }, [isQuizEnded])
+ 
   async function saveDataIntoDB() {
     try {
       const id = selectQuizToStart._id;
@@ -116,47 +97,7 @@ function QuizStartQuestions({ onUpdateTime }) {
     }
   }
 
-  // console.log(indexOfQuizSelected);
-
-  // useEffect(() => {
-    
-  //   startTimer();
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [currentQuestionIndex, indexOfQuizSelected,allQuizzes]);
-
-  // useEffect(() => {
-  //   if ( !isQuizEnded) {
-  //     // Updating the allQuizzes
-  //     const currentQuizzes = [...allQuizzes];
-  //     currentQuizzes[indexOfQuizSelected].quizQuestions[
-  //       currentQuestionIndex
-  //     ].statistics.totalAttempts += 1;
-  //     currentQuizzes[indexOfQuizSelected].quizQuestions[
-  //       currentQuestionIndex
-  //     ].statistics.incorrectAttempts += 1;
-
-  //     setAllQuizzes(currentQuizzes);
-  //     // --------------------
-  //     if (currentQuestionIndex !== quizQuestions.length - 1) {
-  //       setTimeout(() => {
-  //         setCurrentQuestionIndex((current) => {
-  //           return current + 1;
-  //         });
-  //       }, 1000);
-  //     } else {
-  //       setIsQuizEnded(true);
-        
-  //       clearInterval(interval);
-  //     }
-  //   }
-  // }, [allQuizzes,indexOfQuizSelected,currentQuestionIndex,isQuizEnded]);
-
-  // With the useEffect every time the component is loaded up
-  //we need to get the index of the quiz we selected inside
-  // the allquizzes array to update it when we choose tne answer
-  //
+ 
   useEffect(() => {
     const quizIndexFound = allQuizzes.findIndex(
       (quiz) => quiz._id === selectQuizToStart._id,
@@ -180,18 +121,30 @@ function QuizStartQuestions({ onUpdateTime }) {
     // update the selectedChoice variable state
     setSelectedChoice(choiceIndexClicked);
     //---------------------------------------
-
+   
     //We update the answerResult proprety in the allQuizzes array
     const currentAllQuizzes = [...allQuizzes];
-
+    localStorage.setItem("quiz", JSON.stringify(allQuizzes[indexOfQuizSelected]));
+    setQuiz(allQuizzes[indexOfQuizSelected])
     currentAllQuizzes[indexOfQuizSelected].quizQuestions[
       currentQuestionIndex
     ].answeredResult = choiceIndexClicked;
-
+    const newAnswers = [...userAnswers];
+    newAnswers[currentQuestionIndex] = choiceIndexClicked;
+    setUserAnswers(newAnswers);
+    dispatch(setAnswers(userAnswers))
+    localStorage.setItem("answers", JSON.stringify(newAnswers));
+    
     setAllQuizzes(currentAllQuizzes);
     console.log(currentAllQuizzes)
   }
-  console.log(score)
+ 
+  // if(isQuizEnded){
+  //   dispatch(setAnswers(userAnswers))
+  // }
+
+  
+  
   function moveToTheNextQuestion() {
     // Check if the we did select the an answer by using the answerResult proprety if
     //it's still equal to -1
@@ -237,11 +190,13 @@ function QuizStartQuestions({ onUpdateTime }) {
         // setTimer(0);
         // clearInterval(interval);
         setIsQuizEnded(true);
+        console.log(userAnswers)
       }
 
       return;
     }
 
+    
     // update the correct attemptes
     allQuizzes[indexOfQuizSelected].quizQuestions[
       currentQuestionIndex
@@ -273,7 +228,11 @@ function QuizStartQuestions({ onUpdateTime }) {
     }
 if(isQuizEnded){
   dispatch( setUserScore(score) );
+  console.log("user answer is ",userAnswers)
+  // dispatch(setAnswers(userAnswers));
+  
 }
+
  console.log(score)
     // increment the currentQuestionIndex by 1 to go to the next question
     setTimeout(() => {
@@ -283,37 +242,7 @@ if(isQuizEnded){
     }, 2000);
   }
 
-  // async function addExperience() {
-  //   const userCopy = user;
-  //   console.log(userCopy);
-  //   userCopy.experience += 1;
-
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3000/api/user?id=${userCopy._id}`,
-  //       {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ updateUser: userCopy }),
-  //       },
-  //     );
-
-  //     if (!response.ok) {
-  //       toast.error('Something went wrong...');
-  //       throw new Error('fetching failed...');
-  //     }
-
-  //     setUser(userCopy);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-
-
-// Usage
+  
 useEffect(() => {
   const getQuizAssets=async()=>{
     try{
@@ -422,6 +351,8 @@ const img=images[currentQuestionIndex]?.imgeSrc
             score,
             setScore,
             quizQuestions,
+            isQuizEnded
+            
           }}
         />
       )}
@@ -439,6 +370,7 @@ function ScoreComponent({ quizStartParentProps }) {
   const [isPreview, setIsPreview] = useState(false);
   const [isResultPreview, setIsResultPreview] = useState(false);
   const numberOfQuestions = selectQuizToStart.quizQuestions.length;
+  const [answer,setAnswer] = useState('')
   const {data:session} = useSession();
   const router = useRouter();
   //
@@ -452,6 +384,8 @@ function ScoreComponent({ quizStartParentProps }) {
     setScore,
     score,
     quizQuestions,
+    setAnswers,
+    isQuizEnded
   } = quizStartParentProps;
   const handlePreview = () => {
     setIsPreview(!isPreview);
@@ -462,10 +396,16 @@ function ScoreComponent({ quizStartParentProps }) {
   
     console.log(chosenAnswerIndex)
     console.log(questionIndex)
+    if(questionIndex){
+      setAnswer(quizQuestions[questionIndex].choices[chosenAnswerIndex])
+      
+    }
+   
     // Check if an answer was chosen for the current question
     if (chosenAnswerIndex !== null && chosenAnswerIndex >= 0 && quizQuestions[questionIndex].choices[chosenAnswerIndex]) {
       // Return the chosen answer text based on the index
-      return quizQuestions[questionIndex].choices[chosenAnswerIndex];
+   return    quizQuestions[questionIndex].choices[chosenAnswerIndex];
+      
     } else {
       // Handle the case where no answer was chosen
       return 'No answer chosen';
@@ -473,14 +413,11 @@ function ScoreComponent({ quizStartParentProps }) {
   }
 
 
- 
+  // console.log(answer)
 
-  function isAnswerCorrect(questionIndex) {
-    return (
-      quizQuestions[questionIndex].answeredResult ==
-      quizQuestions[questionIndex].correctAnswer
-    );
-  }
+  // function isAnswerCorrect(questionIndex) {
+  //   return userAnswers[questionIndex] === quizQuestions[questionIndex].correctAnswer;
+  // }
 
 
   function emojiIconScore() {
@@ -564,31 +501,45 @@ console.log("your result is ",result);
         className='text-lg absolute top-2 right-2 bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme'
         >Preview Certificate</button>
       )}</div>
-     <button onClick={() => setIsResultPreview(!isResultPreview)}
+     <Link href="/quiz-details">
+     <button 
         className={`${isPreview ? "hidden" : "block"} text-lg absolute bottom-2   bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme`}
         >Quiz Preview</button>
+     
+     </Link>
       </div>
-      {isResultPreview && ( <div className="flex items-center justify-center rounded-md border border-gray-200 absolute w-full min-h-[480px] overflow-y-scroll flex-col font-semibold bg-white gap-6 p-10 ">
+     {/* <button onClick={() => setIsResultPreview(!isResultPreview)}
+        className={`${isPreview ? "hidden" : "block"} text-lg absolute bottom-2   bg-themeYellow font-semibold px-4 py-2 rounded-lg text-theme`}
+        >Quiz Preview</button>
+      </div> */}
+      {isResultPreview && isQuizEnded && ( 
+        
+        <div className="flex items-center justify-center rounded-md border border-gray-200 absolute w-full min-h-[480px] overflow-y-scroll flex-col font-semibold bg-white gap-6 p-10 ">
         <h1 className="bg-theme text-themeYellow py-2 px-6 rounded-md">Review Questions</h1>
-        <div className="w-full px-4 flex flex-col gap-4">
-          {quizQuestions.map((question, index) => (
-            <div key={index} className="my-2">
-              <h1 className="">
-                <span className="font-extrabold  text-theme  rounded-md ">Question {index + 1} :</span>
-                <span className="ml-2">{question.mainQuestion}</span>
-              </h1>
-              <h1 className=" min-w-3/5 flex items-center gap-4 font-normal text-sm">Your Answer is :
-              <span className={`text-${
-                isAnswerCorrect(index) ? 'green-600' : 'red-500'
+        <h1 className='font-extrabold  text-theme  rounded-md'>Quiz Title :{quiz.quizTitle}</h1>
+   {quiz.length >0 && (
+ quiz.map((question, index) => ( <>
+    <h1 key={index}> Question {index + 1} : {question.mainQuestion} </h1>
+    <div className="w-full px-4 flex   ">
+    <div className='flex flex-col'>
+    <h1 className='min-w-3/5 flex items-center gap-4 font-normal text-sm'> Your Answer : 
+   <span className={`text-${
+                question.choices[answer[index]] === question.choices[question.correctAnswer] ? 'green-600' : 'red-500'
               }`}>
-                {getUserAnswer(index)}
-              </span>
-              </h1>
-              
-              <h1 className="text-green-600 min-w-3/5  flex items-center gap-4 font-normal text-sm">Correct Answer: <span className=''>{question.choices[question.correctAnswer]}</span>  <span className='absolute right-4'>Points : {`${isAnswerCorrect(index) ? 10 : 0}`}</span></h1>
-            </div>
-          ))}
-        </div>
+                {question.choices[answer[index]]}
+              </span></h1>
+   <h1> The Correct Answer : {question.choices[question.correctAnswer]} </h1>
+    </div>
+   
+    
+   
+   <p>Points : {question.choices[answer[index]] === question.choices[question.correctAnswer] ? 10 : 0}</p>
+    
+    </div>
+    
+    </>
+))
+   )}
 
         <button onClick={()=>setIsResultPreview(false)} className='w-6 h-6 bg-theme text-white rounded-full absolute top-2 right-4'>X</button>
       </div>)}

@@ -33,15 +33,16 @@ function Navbar(props) {
 
   return (
   
-      <div className="relative py-4 md:px-8   sm:flex sm:flex-col md:flex-row w-full  justify-between   shadow-sm shadow-theme">
+      <div className="relative py-6 md:px-8   sm:flex sm:flex-col md:flex-row w-full  justify-between   bg-theme">
       
         <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
           <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
             <Image
-              src="/logonew.svg"
+              src="/hero-img.svg"
               alt=""
-              width={50}
-              height={50}
+              width={100}
+              height={100}
+              className='bg-white rounded-full w-24 h-24'
             />
             <h2 className="text-2xl text-center text-themeYellow ml-2  font-bold  md:text-3xl   flex gap-2">
             AEM.QUIZ
@@ -49,18 +50,12 @@ function Navbar(props) {
           </Link>
           
         </div>
-        <div className='hidden lg:flex'>
-            {session && (
-              <span className='h-fit py-2 font-semibold text-theme flex items-center justify-center px-4 rounded-md '>
-                Score : <span className='ml-2'>{user?.score}</span>
-              </span>
-            )}
-          </div>
+       
         <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
           <div className='flex items-center  flex-col md:flex-row justify-center gap-6 relative'>
             {session && (
               <div className="flex gap-2 ">
-                <span className='text-[19px] text-theme font-bold'>
+                <span className='text-[19px] text-themeYellow font-bold'>
                    <span className=''>{myUser?.name}</span>
                 </span>
               </div>
@@ -71,11 +66,11 @@ function Navbar(props) {
                 type="button"
                 onClick={() => signOut()}
               >
-               Logout
+               <Image src="/power.svg" alt="" width={25} height={25} />
               </button>
             ) : (
               <button
-                className="block rounded-lg bg-theme px-7 py-3 text-sm font-medium text-white transition focus:outline-none"
+                className="block rounded-lg bg-theme px-7 py-3 text-lg font-medium text-themeYellow transition focus:outline-none"
                 type="button"
                 onClick={() => {
                   router.push('/login');

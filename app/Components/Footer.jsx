@@ -3,8 +3,8 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className=" mt-20 boreder-t-1 border-gray-200">
-  <div className="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8 border-t-[1px] border-gray-200 ">
+    <footer className=" mt-20 boreder-t-1 bg-white">
+  <div className="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8  ">
     <div className="flex flex-col  items-center md:flex-row justify-between">
       
       <Image src="/logonew.svg" alt='' width={50} height={50} />
