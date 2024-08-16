@@ -37,13 +37,13 @@ function Navbar(props) {
       
         <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
           <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
-            <Image
+            {/* <Image
               src="/hero-img.svg"
               alt=""
               width={100}
               height={100}
               className='bg-white rounded-full w-24 h-24'
-            />
+            /> */}
             <h2 className="text-2xl text-center text-themeYellow ml-2  font-bold  md:text-3xl   flex gap-2">
             AEM.QUIZ
             </h2>
