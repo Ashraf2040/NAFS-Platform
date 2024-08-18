@@ -115,7 +115,7 @@ function QuizStartQuestions({ onUpdateTime }) {
       // dispatch(setUserScore(50));
       updateUserInformation();
     }
-  }, [isQuizEnded,]);
+  }, [isQuizEnded, quizQuestions, saveDataIntoDB, updateUserInformation]);
 
   function selectChoiceFunction(choiceIndexClicked) {
     // update the selectedChoice variable state
@@ -271,7 +271,7 @@ setImages(currentQuestionAssets)
     }
   }
   getQuizAssets()
-}, []);
+}, [selectQuizToStart._id]);
 
 // console.log(images)
 
