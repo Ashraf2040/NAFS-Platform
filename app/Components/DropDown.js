@@ -93,14 +93,14 @@ function DropDown(props) {
 
                   toast.dismiss(t.id);
                 }}
-                className="bg-green-700 text-white  p-1 w-[100px] rounded-md
+                className="bg-theme text-white  p-1 w-[100px] rounded-md
               "
               >
                 Yes
               </button>
               <button
-                className="bg-white text-green-700 p-1 w-[100px] border  border-green-700
-                rounded-md hover:text-white hover:bg-green-700"
+                className="bg-white text-theme p-1 w-[100px] border  border-theme
+                rounded-md hover:text-white hover:theme"
                 onClick={() => {
                   toast.dismiss(t.id);
                 }}
@@ -133,8 +133,8 @@ poppins poppins-light text-[13px] ${
         <div
           onClick={() => handleClickedItem(menuItem)}
           key={index}
-          className="flex gap-2 items-center border text-green-700 border-gray-200 rounded-md p-3 
-  select-none cursor-pointer hover:text-white hover:bg-green-700"
+          className="flex gap-2 items-center border text-theme border-gray-200 rounded-md p-3 
+  select-none cursor-pointer hover:text-themeYellow hover:bg-theme"
         >
           <FontAwesomeIcon className="size-4" icon={menuItem.icon} />
           <div className=" ">{menuItem.name}</div>

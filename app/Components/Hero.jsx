@@ -57,7 +57,7 @@ const Hero = () => {
                     </li>
                 </ul>
             </nav> */}
-            <section className="py-16">
+            <section className="py-16 ">
                 <div className="max-w-screen-xl mx-auto text-gray-600 gap-x-12 items-center justify-between overflow-hidden md:flex md:px-8">
                     <div className="flex-none space-y-5 px-4 sm:max-w-lg md:px-0 lg:max-w-xl">
                         <h1 className="text-sm text-theme font-medium">
@@ -70,7 +70,7 @@ const Hero = () => {
                             Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
                         </p>
                         <div className="items-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
-                            <a href="javascript:void(0)" className="block py-2 px-4 text-center text-white font-medium bg-theme duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none">
+                            <a href="javascript:void(0)" className="block py-2 px-4 text-center text-white font-medium bg-theme duration-150 hover:bg-themeYellow active:bg-themeYellow rounded-lg shadow-lg hover:shadow-none">
                                 Lets get started
                             </a>
                             <a href="javascript:void(0)" className="flex items-center justify-center gap-x-2 py-2 px-4 text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex">
@@ -86,6 +86,8 @@ const Hero = () => {
                             src="/her.jpg"
                             className=" md:rounded-tl-[108px]"
                             alt=""
+                            width={800}
+                            height={800}
                         />
                     </div>
                 </div>

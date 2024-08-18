@@ -74,7 +74,7 @@ export default function Login() {
         <div className="flex-col md:flex-row  w-full gap-20 justify-between items-center">
           <label htmlFor="email">E-Mail : </label>
           <input
-            className="rounded-md px-8 py-4 bg-slate-100  outline-none"
+            className="rounded-md px-8 py-4 bg-slate-100  outline-none ml-8"
             type="text"
             id="email"
             name="email"

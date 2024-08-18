@@ -25,7 +25,7 @@ module.exports = {
         // theme: 'black',
         themeGreen: '#4DB27B',
         themeYellow: '#f1d18a',
-        themeYellow: '#ddbea8',
+        themeYellow: '#f1b963',
         themeBlue: '#52B5C3',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
