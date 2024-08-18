@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
         <title>NAFS QUIZ APP</title>
       </head>
 
-      <body className={` bg-cover ${poppins.className}  `}>
+      <body className={` bg-white  ${poppins.className}   `}>
       <Provider store={store}>
         <ContextProvider>
         

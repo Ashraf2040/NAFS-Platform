@@ -33,18 +33,18 @@ function Navbar(props) {
 
   return (
   
-      <div className="relative py-6 md:px-8   sm:flex sm:flex-col md:flex-row w-full  justify-between   bg-theme">
+      <div className="relative py-4 md:px-8   sm:flex sm:flex-col md:flex-row w-[95%]  justify-between bg-white text-theme  shadow-md rounded-md mx-auto ">
       
         <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
           <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
-            {/* <Image
-              src="/hero-img.svg"
+            <Image
+              src="/preview123.png"
               alt=""
               width={100}
               height={100}
-              className='bg-white rounded-full w-24 h-24'
-            /> */}
-            <h2 className="text-2xl text-center text-themeYellow ml-2  font-bold  md:text-3xl   flex gap-2">
+             
+            />
+            <h2 className="text-2xl text-center text-theme ml-2  font-bold  md:text-3xl   flex gap-2">
             AEM.QUIZ
             </h2>
           </Link>
@@ -55,7 +55,7 @@ function Navbar(props) {
           <div className='flex items-center  flex-col md:flex-row justify-center gap-6 relative'>
             {session && (
               <div className="flex gap-2 ">
-                <span className='text-[19px] text-themeYellow font-bold'>
+                <span className='text-[19px] text-theme font-bold'>
                    <span className=''>{myUser?.name}</span>
                 </span>
               </div>

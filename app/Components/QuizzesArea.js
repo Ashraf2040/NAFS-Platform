@@ -9,6 +9,7 @@ import DropDown from './DropDown';
 import { useSession } from 'next-auth/react';
 import { connectToDB } from '@/libs/mongoDB';
 import Link from 'next/link';
+import Hero from './Hero';
 
 function QuizzesArea({ props }) {
   const { allQuizzes, userObject, isLoadingObject } =
@@ -45,12 +46,14 @@ function QuizzesArea({ props }) {
       
 
   return (
-    <div className="poppins mx-12 mt-10 h-full ">
+    <div className="poppins mx-12 mt-10 h-full  ">
+      
       <div>
         {isLoading ? (
           <div></div>
         ) : user.isLogged ? (
           <>
+          <Hero />
             {allQuizzes.length === 0 ? (
               <PlaceHolder />
             ) : (

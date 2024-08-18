@@ -57,13 +57,14 @@ export default function Home() {
   return (
     <div className='relative' >
     
+    
     <QuizzesArea />
     <div>
-    {session && (
+    {/* {session && (
               <span className='h-fit py-2 font-bold text-themeYellow flex items-center justify-center px-4 rounded-full  text-lg bg-theme absolute top-3 right-4  '>
                 Score : <span className='ml-2 text-themeYellow'>{user?.score}</span>
               </span>
-            )}
+            )} */}
           </div>
      
     </div>
