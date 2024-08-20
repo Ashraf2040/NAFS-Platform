@@ -97,7 +97,7 @@ function QuizzesArea({ props }) {
                     
                   </select></div>
                 </div>
-                <h2 className="text-xl font-bold flex gap-2 text-theme px-4 rounded-md py-2 max-w-fit"> <span><Image src='/earth.svg' width={20} height={20} alt="" /></span>My Quizzes ...</h2>
+                <h2 className="text-xl font-bold flex gap-2 text-theme px-4 rounded-md py-2 max-w-fit items-center"> <span><Image src='/earth.svg' width={30} height={30} alt="" /></span>My Quizzes ...</h2>
                 <div className="mt-6 flex gap-2 flex-wrap">
                   <div className="flex gap-2 flex-wrap items-center  ">
                     {quizzes.map((singleQuiz, quizIndex) => (
