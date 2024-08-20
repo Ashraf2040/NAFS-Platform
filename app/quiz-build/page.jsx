@@ -1,4 +1,5 @@
-'use client';
+"use client"
+
 
 import React, { useState, useEffect } from 'react';
 import QuizBuildNav from '../Components/QuizBuildPage/QuizBuildNav';
@@ -17,10 +18,9 @@ function Page(props) {
   const { selectedIcon } = selectedIconObject;
   const { selectedQuiz } = selectedQuizObject;
   const [focusFirst, setFocusFirst] = useState(true);
-const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageUrl)
-// console.log(currentQuestionimageUrl)
-  const [
-    quizQuestions, setQuizQuestions] = useState(() => {
+  const currentQuestionImageUrl = useSelector((state) => state.question.questionImageUrl);
+
+  const [quizQuestions, setQuizQuestions] = useState(() => {
     if (selectedQuiz) {
       return selectedQuiz.quizQuestions;
     } else {
@@ -28,7 +28,7 @@ const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageU
         {
           id: uuidv4(),
           mainQuestion: '',
-          questionImageUrl:currentQuestionimageUrl,
+          questionImageUrl: currentQuestionImageUrl,
           choices: prefixes.slice(0, 2).map((prefix) => prefix + '. '),
           correctAnswer: '',
           answeredResult: -1,
@@ -52,6 +52,13 @@ const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageU
         icon: selectedIcon.faIcon,
         quizTitle: '',
         quizQuestions: quizQuestions,
+        subject: '', // Initialize subject
+        // grade: '',
+        subject: 'English', // Set default subject
+        grade: '3',
+        skill: '',
+        
+         // Initialize grade
         // quizImageUrl:""
       };
     }
@@ -67,6 +74,19 @@ const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageU
       // quizImageUrl:""
     }));
   }, [quizQuestions, selectedIcon.faIcon]);
+  // function handleSubjectChange(subject) {
+  //   setNewQuiz((prevQuiz) => ({ ...prevQuiz, subject }));
+  // }
+  function handleSubjectChange(subject) {
+  setNewQuiz((prevQuiz) => ({ ...prevQuiz, subject }));
+}
+
+  function handleGradeChange(grade) {
+    setNewQuiz((prevQuiz) => ({ ...prevQuiz, grade }));
+  }
+  function handleSkillChange(skill) {
+    setNewQuiz((prevQuiz) => ({ ...prevQuiz, skill }));
+  }
 
   function onChangeQuizTitle(text) {
     setNewQuiz((prevQuiz) => ({ ...prevQuiz, quizTitle: text }));
@@ -78,9 +98,14 @@ const currentQuestionimageUrl=useSelector((state)=>state.question.questionImageU
     setNewQuiz,
   };
 
+ 
   const quizTitleProps = {
     focusProp: { focus: focusFirst, setFocusFirst },
     onChangeQuizTitle,
+    onSubjectChange: handleSubjectChange,
+    onGradeChange: handleGradeChange,
+    onSkillChange: handleSkillChange,
+    newQuiz, // Pass newQuiz for read-only access
   };
 
   const quizQuestionsProps = {

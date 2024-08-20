@@ -19,6 +19,10 @@ const questionSchema = new Schema({
 
 const quizSchema = new mongoose.Schema({
   _id: { type: String, required: true },
+  grade: { type: String, required: true },
+  subject: { type: String, required: true },
+  skill: { type: String, required: true },
+  
   icon: { type: String, required: true }, // Assuming you store the icon as a string
   quizTitle: { type: String, required: true },
   quizQuestions: { type: [questionSchema], required: true },

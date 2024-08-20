@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   await connectToDB();
-  const { quizTitle, icon, quizQuestions,_id,quizAssets
+  const { quizTitle, icon, quizQuestions,_id,quizAssets,
 
-  } = await request.json();
-  const newQuiz = await Quiz.create({ quizTitle, icon, quizQuestions ,_id,quizAssets
+ grade,subject,skill } = await request.json();
+  const newQuiz = await Quiz.create({ quizTitle, icon, quizQuestions ,_id,quizAssets ,grade,subject,skill
 
   });
 
