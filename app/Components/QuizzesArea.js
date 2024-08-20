@@ -72,7 +72,7 @@ function QuizzesArea({ props }) {
               <div>
                 <DropDown />
                 <div className='w-3/5 px-4 my-6 py-3 mx-auto rounded-md bg-theme font-bold text-white flex items-center justify-between '>
-                  <h1>Choose Your Quiz  →</h1>
+                  <h1 className='flex items-center gap-2'>Choose Your Quiz  <span><Image src="/arrow1.svg" alt='' width={20} height={20} /></span></h1>
                  <div> <span className='mr-2'>Subject:</span>
                   <select name="subject" id="" className='text-theme px-2 rounded-md'onChange={(e)=>setSubject(e.target.value)} >
                     <option value="Math" >Math</option>
@@ -97,7 +97,7 @@ function QuizzesArea({ props }) {
                     
                   </select></div>
                 </div>
-                <h2 className="text-xl font-bold text-theme px-4 rounded-md py-2 max-w-fit">My Quizzes</h2>
+                <h2 className="text-xl font-bold flex gap-2 text-theme px-4 rounded-md py-2 max-w-fit"> <span><Image src='/earth.svg' width={20} height={20} alt="" /></span>My Quizzes ...</h2>
                 <div className="mt-6 flex gap-2 flex-wrap">
                   <div className="flex gap-2 flex-wrap items-center  ">
                     {quizzes.map((singleQuiz, quizIndex) => (
@@ -125,7 +125,7 @@ function QuizzesArea({ props }) {
                   
                   
                 </div>
-                <button className="text-xl font-bold text-theme px-4 rounded-md mt-8 py-2 max-w-fit" onClick={() => setStatShow(!statShow)}>Statistics</button>
+                <button className="text-xl font-bold flex gap-2  text-theme px-4 rounded-md mt-8 py-2 max-w-fit" onClick={() => setStatShow(!statShow)}> <span><Image src={'/statistics.svg'} width={20} height={20} alt="" /></span>Statistics ...</button>
 
              { statShow &&
                <div className="statistcs w-full mt-4 bg-theme h-full rounded-[4px]">
