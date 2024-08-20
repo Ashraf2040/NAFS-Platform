@@ -52,11 +52,11 @@ function Page(props) {
         icon: selectedIcon.faIcon,
         quizTitle: '',
         quizQuestions: quizQuestions,
-        subject: '', // Initialize subject
+         // Initialize subject
         // grade: '',
-        subject: 'English', // Set default subject
+        subject: 'Math', // Set default subject
         grade: '3',
-        skill: '',
+        skill: 'skill 1',
         
          // Initialize grade
         // quizImageUrl:""

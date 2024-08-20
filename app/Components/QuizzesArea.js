@@ -20,8 +20,8 @@ function QuizzesArea({ props }) {
   const [students, setStudents] = useState([])
   const [statShow, setStatShow] = useState(false)
   const [subject, setSubject] = useState('Math')
-  const [grade, setGrade] = useState('6')
-  const [skill, setSkill] = useState('')
+  const [grade, setGrade] = useState('3')
+  const [skill, setSkill] = useState('skill 1')
   const { isLoading } = isLoadingObject;
   // console.log(isLoading);
   const {data:session}=useSession()
