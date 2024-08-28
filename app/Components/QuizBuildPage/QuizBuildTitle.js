@@ -111,7 +111,7 @@ function QuizBuildTitle({ focusProp, onChangeQuizTitle, onSubjectChange, onGrade
         <select name="grade" id="" value={newQuiz.grade} onChange={handleGradeChange}>
           <option value="3" >3</option>
           <option value="6">6</option>
-          <option value="8">8</option>
+          <option value="9">9</option>
         </select>
         <span className='font-bold'>Skill :</span>
         <select name="grade" id="" value={newQuiz.skill} onChange={handleSkillChange}>

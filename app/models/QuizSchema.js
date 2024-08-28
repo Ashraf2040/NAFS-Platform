@@ -22,8 +22,7 @@ const quizSchema = new mongoose.Schema({
   grade: { type: String, required: true },
   subject: { type: String, required: true },
   skill: { type: String, required: true },
-  
-  icon: { type: String, required: true }, // Assuming you store the icon as a string
+  icon: { type: String, required: true },
   quizTitle: { type: String, required: true },
   quizQuestions: { type: [questionSchema], required: true },
   quizAssets: { type: Array, default: [] },

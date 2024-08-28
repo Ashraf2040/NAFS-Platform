@@ -85,7 +85,7 @@ function QuizzesArea({ props }) {
                   <select name="subject" id="" className='text-theme px-2 rounded-md' onChange={(e)=>setGrade(e.target.value)}>
                     <option value="3">3</option>
                     <option value="6">6</option>
-                    <option value="8">8</option>
+                    <option value="9">9</option>
                     
                   </select></div>
                  <div> <span
@@ -129,10 +129,11 @@ function QuizzesArea({ props }) {
 
              { statShow &&
                <div className="statistcs w-full mt-4 bg-theme h-full rounded-[4px]">
-<table className='w-full px-4 flex flex-col  '>
+<table className='w-full  flex flex-col px-1  '>
   <th className='text-center '>
-    <tr className='text-white grid grid-cols-9  py-1 '>
-    <td className=' mx-auto'>St.Code</td>
+    <tr className='text-white grid grid-cols-10  py-1 '>
+    <td className=' mx-auto'>Code</td>
+    <td className='col-span-1 '>Grade</td>
     <td className='col-span-2   w-full text-center'>Name</td>
     <td className=' mx-auto'>No Of Trials</td>
     <td className='text-center mx-auto'>Previous Score</td>
@@ -147,8 +148,9 @@ function QuizzesArea({ props }) {
 
  
     {students.map((student, index) => (
-      <tr key={index} className='bg-white w-full grid grid-cols-9 py-1    font-normal mb-2'>
+      <tr key={index} className='bg-white w-full grid grid-cols-10 py-1    font-normal mb-2'>
         <td className=' text-center font-semibold text-red-500'>{student.code}</td>
+        <td className=' text-center font-semibold text-theme'>{student.grade}</td>
         <td className='col-span-2 text-center text-theme font-semibold  w-full '>{student.fullName}</td>
         <td className=' text-center'>{student.trials.length-1}</td>
         <td className=' text-center'>{student.trials[student.trials.length-2]}</td>
@@ -170,7 +172,7 @@ function QuizzesArea({ props }) {
         ) : (
           <div className="  h-96 flex flex-col text-2xl gap-4 justify-center items-center">
             <h2 className="font-bold md:text-5xl  text-themeYellow">
-            <span className="text-theme">NAFS</span>  Training Pltform 
+            <span className="text-theme">NAFS</span>  Training Platform 
             </h2>
             <span className="text-xl font-semibold text-center ">
               Unlock Your Potential with Personalized Quizzes
