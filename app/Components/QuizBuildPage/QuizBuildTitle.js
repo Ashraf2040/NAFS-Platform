@@ -21,6 +21,7 @@ function QuizBuildTitle({ focusProp, onChangeQuizTitle, onSubjectChange, onGrade
   const [subject, setSubject] = useState('');
   const [grade, setGrade] = useState('');
   const [skill, setSkill] = useState('');
+  const skills=["Skill 1","Skill 2","Skill 3","Skill 4","Skill 5"]
 
   function handleTextInputChange(text) {
     setQuizTitle(text);
@@ -115,9 +116,7 @@ function QuizBuildTitle({ focusProp, onChangeQuizTitle, onSubjectChange, onGrade
         </select>
         <span className='font-bold'>Skill :</span>
         <select name="grade" id="" value={newQuiz.skill} onChange={handleSkillChange}>
-          <option value="skill 1" >skill 1</option>
-          <option value="skill 2">skill 2</option>
-          <option value="skill 3">skill 3</option>
+        { skills.map((skill)=> <option value={skill.toLocaleLowerCase()} key={skill.toLocaleLowerCase()}>{skill}</option>)}
         </select>
       </div>
     </div>

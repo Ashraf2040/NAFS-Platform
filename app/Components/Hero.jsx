@@ -57,8 +57,8 @@ const Hero = () => {
                     </li>
                 </ul>
             </nav> */}
-            <section className="py-16 ">
-                <div className="max-w-screen-xl mx-auto text-gray-600 gap-x-12 items-center justify-between overflow-hidden md:flex md:px-8">
+            <section className="py-16 my-6  ">
+                <div className="max-w-screen-2xl mx-auto text-gray-600 gap-x-12 items-center justify-between overflow-hidden md:flex md:px-8">
                     <div className="flex-none space-y-5 px-4 sm:max-w-lg md:px-0 lg:max-w-xl">
                         <h1 className="text-sm text-theme font-medium">
                             Our Platform Produce:

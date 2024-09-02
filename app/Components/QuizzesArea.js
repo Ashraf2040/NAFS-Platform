@@ -11,6 +11,7 @@ import { connectToDB } from '@/libs/mongoDB';
 import Link from 'next/link';
 import Hero from './Hero';
 import { CloudCog } from 'lucide-react';
+import Hero2 from './Hero2';
 
 function QuizzesArea({ props }) {
   const { allQuizzes, userObject, isLoadingObject } =
@@ -25,6 +26,7 @@ function QuizzesArea({ props }) {
   const { isLoading } = isLoadingObject;
   // console.log(isLoading);
   const {data:session}=useSession()
+  const skills=["Skill 1","Skill 2","Skill 3","Skill 4","Skill 5"]
 
   useEffect(() => {
     const getStudentData = async () => {
@@ -37,7 +39,7 @@ function QuizzesArea({ props }) {
         .then((response) => response.json())
         .then((data) => {
           
-        //  console.log(data)
+         console.log(data)
           setStudents(data);
         })
         .catch((error) => {
@@ -47,6 +49,19 @@ function QuizzesArea({ props }) {
  
               getStudentData();
   }, [setStudents]);
+  
+   const currentStudent = students?.find(student => student.code === session?.user?.code)
+
+   console.log(currentStudent)
+  // const studentScores =studentQuizzes?.map(quiz => quiz.score)
+  // const studentPercentages =studentQuizzes?.map(quiz => quiz.percentage)
+  // const percentage= studentQuizzes?.map(quiz => quiz.percentage).reduce((a, b) => a + b, 0)/studentQuizzes?.length
+
+  // const totalScore = studentScores.reduce((acc, curr) => acc + curr, 0);
+
+  // console.log(studentScores)
+
+       
 
   const filterQuizzes = (quizzes, subject, grade,skill) => {
     return quizzes.filter(quiz => {
@@ -54,9 +69,8 @@ function QuizzesArea({ props }) {
     });
   };
  const quizzes=     filterQuizzes(allQuizzes, subject, grade,skill);
-
-
-
+    
+  console.log(students)
   return (
     <div className="poppins mx-12 mt-10 h-full  ">
       
@@ -69,11 +83,11 @@ function QuizzesArea({ props }) {
             {allQuizzes.length === 0 ? (
               <PlaceHolder />
             ) : (
-              <div>
+              <div className=''>
                 <DropDown />
-                <div className='w-3/5 px-4 my-6 py-3 mx-auto rounded-md bg-theme font-bold text-white flex items-center justify-between '>
+                <div className=' px-4 my-6 py-3 mx-auto rounded-md bg-theme font-bold text-white flex items-center justify-between '>
                   <h1 className='flex items-center gap-2'>Choose Your Quiz  <span><Image src="/arrow1.svg" alt='' width={20} height={20} /></span></h1>
-                 <div> <span className='mr-2'>Subject:</span>
+                 <div> <span className='mr-2'>Subject :</span>
                   <select name="subject" id="" className='text-theme px-2 rounded-md'onChange={(e)=>setSubject(e.target.value)} >
                     <option value="Math" >Math</option>
                     <option value="English">English</option>
@@ -81,7 +95,7 @@ function QuizzesArea({ props }) {
                     
                   </select></div>
                  <div> <span
-                 className='mr-2'>Grade:</span>
+                 className='mr-2'>Grade :</span>
                   <select name="subject" id="" className='text-theme px-2 rounded-md' onChange={(e)=>setGrade(e.target.value)}>
                     <option value="3">3</option>
                     <option value="6">6</option>
@@ -89,11 +103,10 @@ function QuizzesArea({ props }) {
                     
                   </select></div>
                  <div> <span
-                 className='mr-2'>Skill:</span>
+                 className='mr-2'>Skill :</span>
                   <select name="subject" id="" className='text-theme px-2 rounded-md' onChange={(e)=>setSkill(e.target.value)}>
-                    <option value="skill 1">Skill 1</option>
-                    <option value="skill 2">Skill 2</option>
-                    <option value="skill 3">Skill 3</option>
+                 { skills.map((skill)=> <option value={skill.toLocaleLowerCase()} key={skill.toLocaleLowerCase()}>{skill}</option>)}
+                  
                     
                   </select></div>
                 </div>
@@ -131,15 +144,17 @@ function QuizzesArea({ props }) {
                <div className="statistcs w-full mt-4 bg-theme h-full rounded-[4px]">
 <table className='w-full  flex flex-col px-1  '>
   <th className='text-center '>
-    <tr className='text-white grid grid-cols-10  py-1 '>
+    <tr className='text-white grid grid-cols-9  py-1 '>
     <td className=' mx-auto'>Code</td>
     <td className='col-span-1 '>Grade</td>
     <td className='col-span-2   w-full text-center'>Name</td>
     <td className=' mx-auto'>No Of Trials</td>
-    <td className='text-center mx-auto'>Previous Score</td>
-    <td className='text-center mx-auto'>Current Score</td>
+    <td className='text-center mx-auto'> Score</td>
+    <td className='text-center mx-auto'>
+      percentage
+    </td>
     <td className='text-center mx-auto'>Progress</td>
-    <td className='text-center mx-auto'>Total Points</td>
+  
     <td className='text-center mx-auto'>Report</td>
     
     </tr>
@@ -148,17 +163,16 @@ function QuizzesArea({ props }) {
 
  
     {students.map((student, index) => (
-      <tr key={index} className='bg-white w-full grid grid-cols-10 py-1    font-normal mb-2'>
+      <tr key={index} className='bg-white w-full grid grid-cols-9 py-1    font-normal mb-2'>
         <td className=' text-center font-semibold text-red-500'>{student.code}</td>
         <td className=' text-center font-semibold text-theme'>{student.grade}</td>
         <td className='col-span-2 text-center text-theme font-semibold  w-full '>{student.fullName}</td>
-        <td className=' text-center'>{student.trials.length-1}</td>
-        <td className=' text-center'>{student.trials[student.trials.length-2]}</td>
-        <td className=' text-center'>{student.trials[student.trials.length-1]}</td>
-        <td className={` text-center ${student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"text-themeGreen font-semibold" : "text-red-600 font-semibold"}`}>
-{student.trials[student.trials.length-1]>=student.trials[student.trials.length-2] ?"Passed" : "Failed"}
-        </td>
-        <td className=' text-center'>{student.score}</td>
+        <td className=' text-center text-theme font-semibold'>{student.quizzes.length}</td>
+        <td className=' text-center text-theme font-semibold'>{student.quizzes.map((quiz)=>quiz.score).reduce((a, b) => a + b, 0)}</td>
+        <td className=' text-center text-theme font-semibold'>{Math.round(student.quizzes?.map(quiz => quiz.percentage).reduce((a, b) => a + b, 0)/student.quizzes?.length)} %</td>
+        <td className={` text-center ${student.quizzes?.map(quiz => quiz.percentage).reduce((a, b) => a + b, 0)/student.quizzes?.length >= 65 ? "text-green-500" : "text-red-500"} font-semibold`}>{`${student.quizzes?.map(quiz => quiz.percentage).reduce((a, b) => a + b, 0)/student.quizzes?.length >= 65 ? "Passed" : "Failed"}`}</td>
+        
+       
         <td className=' text-center underline text-themeYellow font-semibold '><Link href={`/report/${student.code}`}>Report</Link></td>
       </tr>
     ))}

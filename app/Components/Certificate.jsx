@@ -64,9 +64,9 @@ const Certificate = ({setIsPreview}) => {
 
         <p className=' font-bold text-xl'>Score : <span className='text-theme text-xl'>{user?.score}</span> </p>
         <div className='  absolute bottom-4 flex justify-between items-center w-[90%]  '>
-   <h2 className='  max-w-fit   border-t-2 border-slate-600  font-bold text-[14px]    '>Abdullah Al-Ghamdi</h2>
+   <h2 className='  max-w-fit   border-t-2 border-slate-600  font-bold text-[14px]    '>XXXXXXXXX</h2>
         <h2 className=' font-bold  text-[14px]   
-         max-w-fit   border-t-2 border-slate-600'>Ahmed Soliman</h2></div>
+         max-w-fit   border-t-2 border-slate-600'>XXXXXXXXXX</h2></div>
         </div>
         </div>
      <div className='flex justify-center gap-4 items-center absolute right-0 -bottom-20 '>

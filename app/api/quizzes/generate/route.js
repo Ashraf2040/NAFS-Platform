@@ -24,7 +24,7 @@ export async function POST(req) {
     const texts = selectedDocuments.map((doc) => doc.pageContent);
 
     const prompt = `
-    Given the following text, which may be in Arabic or English, generate a quiz based on the text. The quiz should be in the same language as the text. Return JSON only that contains a quiz object with fields: icon, quizTitle, id, and quizQuestions. The id should be unique and contain only alphanumeric characters. The quizQuestions is an array of objects with fields: id, mainQuestion, choices, correctAnswer, answeredResult (default -1), and statistics. The statistics is an object with fields: totalAttempts (default 0), correctAttempts (default 0), and incorrectAttempts (default 0).
+    Given the following text, which may be in Arabic or English, generate a quiz based on the text. The quiz should be in the same language as the text. If the text already contains questions, use those questions directly to form the quiz. If the text does not contain questions, generate new questions based on the text. Return JSON only that contains a quiz object with fields: icon, quizTitle, id, and quizQuestions. The id should be unique and contain only alphanumeric characters. The quizQuestions is an array of objects with fields: id, mainQuestion, choices, correctAnswer, answeredResult (default -1), and statistics. The statistics is an object with fields: totalAttempts (default 0), correctAttempts (default 0), and incorrectAttempts (default 0).
     `;
     
 

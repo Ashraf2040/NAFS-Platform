@@ -33,44 +33,45 @@ function Navbar(props) {
 
   return (
   
-      <div className="relative  md:px-8   sm:flex sm:flex-col md:flex-row w-full justify-between bg-white text-theme   rounded-md mx-auto ">
+      <div className="relative  md:px-8   mt-2 sm:flex sm:flex-col md:flex-row w-[95%] justify-between  text-theme    rounded-md mx-auto ">
       
         <div className=" items-center     sm:flex-col   md:flex-row justify-between  max-h-fit">
           <Link href="/" className="flex   md:gap-1 items-center  justify-around  ">
             <Image
-              src="/preview123.png"
+              src="/hero-img.svg"
               alt=""
-              width={100}
+              width={120}
               height={100}
              
             />
-            <h2 className="text-2xl text-center text-theme ml-2  font-bold  md:text-3xl   flex gap-2">
-            AEM.QUIZ
-            </h2>
+          
           </Link>
           
         </div>
+        <div className='flex justify-center bg-red-400~'>
+          <Image src="/63030330.png" alt="" width={150} height={50} />
+        </div>
        
         <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-          <div className='flex items-center  flex-col md:flex-row justify-center gap-6 relative'>
+          <div className='flex items-center   flex-col md:flex-row justify-center gap-6 relative'>
             {session && (
               <div className="flex gap-2 ">
                 <span className='text-[19px] text-theme font-bold'>
-                   <span className=''>{myUser?.name}</span>
+                   <span className=''>Welcome : {myUser?.name}</span>
                 </span>
               </div>
             )}
             {session ? (
               <button
-                className="block rounded-full bg-theme px-2 py-2 text-sm font-semibold text-white transition focus:outline-none  w-4/5 md:w-fit"
+                className="block rounded-full bg-themeYellow px-2 py-2 text-sm font-semibold text-white transition focus:outline-none  w-4/5 md:w-fit"
                 type="button"
                 onClick={() => signOut()}
               >
-               <Image src="/power.svg" alt="" width={25} height={25} />
+               <button>Logout</button>
               </button>
             ) : (
               <button
-                className="block rounded-lg bg-theme px-7 py-3 text-lg font-medium text-themeYellow transition focus:outline-none"
+                className="block rounded-lg bg-theme px-7 py-3 text-lg font-medium text-white transition focus:outline-none"
                 type="button"
                 onClick={() => {
                   router.push('/login');
