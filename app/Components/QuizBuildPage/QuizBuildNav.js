@@ -117,7 +117,7 @@ function QuizBuildNav({ newQuiz, setNewQuiz }) {
       console.log(updatedQuiz[findIndexQuiz]);
       updatedQuiz[findIndexQuiz].icon = convertIconText;
       try {
-        const res = await fetch(`http://localhost:3000/api/quizzes?id=${id}`, {
+        const res = await fetch(`https://nafs-platform.vercel.app/quizzes?id=${id}`, {
           method: 'PUT',
           headers: {
             'Content-type': 'application/json',
